@@ -11,6 +11,6 @@ const ProductControllerGeneric = new GenericController(productManager)
 const generateGenericRouter = require("../../helpers/generateGenericRouter");
 
 //Generamos las rutas mediante el generador 
-const productsRouter= generateGenericRouter(ProductControllerGeneric)
+const productsRouter = generateGenericRouter(ProductControllerGeneric)
 
 module.exports = productsRouter;

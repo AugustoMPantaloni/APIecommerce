@@ -24,6 +24,7 @@
 
 const ProductModel = require ("../models/productsModel");
 const CartModel = require ("../models/cartsModel");
+const UsersModel = require ("../models/usersModel");
 
 class Manager {
     constructor(model){
@@ -38,9 +39,11 @@ class Manager {
 }
 
 const productManager = new Manager(ProductModel);
-const cartManager = new Manager(CartModel)
+const cartManager = new Manager(CartModel);
+const userManager = new Manager(UsersModel);
 
 module.exports = {
     productManager,
     cartManager,
+    userManager,
 }

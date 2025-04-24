@@ -1,7 +1,7 @@
 /* Documentacion *
 * GenericController
 * 
-* Este controlador genérico implementa operaciones CRUD estándar 
+* Este controlador genérico implementa operaciones CRUD estándar para manejar las peticiones HTTP
 * utilizando un `manager` inyectado (una instancia de la clase Manager).
 * 
 * Métodos implementados:

@@ -2,6 +2,7 @@
 const express = require("express");
 const {engine} = require ("express-handlebars");
 const morgan = require("morgan");
+const cookieParser = require ("cookie-parser");
 const path = require("path");
 require ("dotenv").config();
 
@@ -26,6 +27,7 @@ server.use(express.json());
 server.use(express.urlencoded({extended:true}));
 server.use(express.static(path.join(__dirname,"..","public")));
 server.use(morgan("dev"));
+server.use(cookieParser(process.env.PASSWORD_COOKIE));
 
 //Router Settings
 const router = require("./routers/index.router");
