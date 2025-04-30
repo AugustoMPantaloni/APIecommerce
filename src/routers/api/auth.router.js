@@ -6,28 +6,17 @@ const validator = require('validator');
 const {userManager} = require ("../../dao/manager")
 
 const sendSuccess = require ("../../helpers/responseHelper");
+const passport = require("passport");
 
 const authRouter = Router();
 
 //Registrar usuario
-authRouter.post("/register", async (req, res, next)=>{
-    try {
-        const {email, name, lastname, password, role} = req.body
-        if(!name || !lastname || !email || !password){
-            throw new Error("Data is missing")
-        }
-
-        if(!validator.isEmail(email)){
-            throw new Error("Invalid email format")
-        }
-
-        const validateUser = await userManager.readBy({ email });
-        if(validateUser){
-            throw new Error("Email already registered")
-        }
-
-        const user = await userManager.createOne({name, lastname, email, password, role})
-
+authRouter.post(
+        "/register",
+        passport.authenticate("localRegister",{session: false}),
+        (req, res) => {
+        const user = req.user;
+        
         sendSuccess(res, {
             message:"User created",
             name: user.name,
@@ -35,10 +24,8 @@ authRouter.post("/register", async (req, res, next)=>{
             email: user.email,
             role: user.role
         }, 201)
-    } catch (error) {
-        next(error)
-    }
-})
+    } 
+)
 
 //logear usurio
 authRouter.post("/login", async (req, res, next)=>{
