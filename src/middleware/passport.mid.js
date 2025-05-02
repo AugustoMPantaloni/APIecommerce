@@ -4,6 +4,7 @@ const {createHash, compareHash} = require ("../helpers/hash.helper")
 const {userManager} = require ("../dao/manager")
 const validator = require ("validator")
 
+
 passport.use("localRegister", new localStrategy(
     {
     usernameField: "email",
@@ -14,27 +15,61 @@ passport.use("localRegister", new localStrategy(
     async (req, email, password, done) => {
     try {
         const {name, lastname, role} = req.body
+
+        //Validamos campos obligatorios
         if(!name || !lastname || !email || !password){
-            throw new Error("Data is missing")
-        }
+            return done(null, false,{message: "Data is missing"})
+        }  
 
+        //Validamos el formato del email
         if(!validator.isEmail(email)){
-            throw new Error("Invalid email format")
+            return done(null, false,{message: "Invalid email format"})
         }
 
+        //Verificamos si el usuario ya existe
         const validateUser = await userManager.readBy({ email });
         if(validateUser){
-            throw new Error("Email already registered")
+            return done(null, false,{message: "Email already registered"})
         }
         
+        //Hasheamos la contraseña
         const passwordHashed = await createHash(password);
-        const user = await userManager.createOne({name, lastname, email, password: passwordHashed, role})
+
+        //Creamos el usuario
+        const user = await userManager.createOne({name, lastname, email, password: passwordHashed, role: role || "user"})
 
         done(null, user)
     }catch (error) {
         done(error)
     }
 }
+))
+
+
+passport.use("localLogin", new localStrategy (
+    {
+        usernameField: "email",
+        passwordField: "password",
+    },
+    async (email, password, done) =>{
+        try {
+            //Buscamos el usuario en la DB
+            const user = await userManager.readBy({email});
+            if(!user){
+                return done(null, false,{message: "Incorrect email or password."})
+            }
+
+            //verificamos contraseña
+            const match = await compareHash(password, user.password);
+            if(!match){
+                return done(null, false,{message: "Incorrect email or password."})
+            }
+            
+            done(null, user);
+        } catch (error) {
+            done(error)
+        }
+    }
 ))
 
 

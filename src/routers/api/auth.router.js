@@ -1,4 +1,3 @@
-const express =  require ("express");
 const {Router} = require ("express")
 const validator = require('validator'); 
 
@@ -7,69 +6,96 @@ const {userManager} = require ("../../dao/manager")
 
 const sendSuccess = require ("../../helpers/responseHelper");
 const passport = require("passport");
+const {createToken, validateToken} = require ("../../helpers/jwt.helper")
 
 const authRouter = Router();
 
 //Registrar usuario
 authRouter.post(
-        "/register",
-        passport.authenticate("localRegister",{session: false}),
-        (req, res) => {
-        const user = req.user;
-        
-        sendSuccess(res, {
-            message:"User created",
-            name: user.name,
-            lastname: user.lastname,
-            email: user.email,
-            role: user.role
-        }, 201)
-    } 
-)
+        "/register", (req, res, next) => {
+            passport.authenticate("localRegister", {session: false}, (err, user, info) => {
+                    if(err){
+                        return next(err);
+                    }
+                    if(!user){
+                        return next(new Error(info.message))
+                    }
+
+                    const tokenData ={
+                        id: user._id,
+                        email: user.email,
+                        role: user.role
+                    }
+                    const token = createToken(tokenData);
+
+                    res.cookie("token", token,{
+                        maxAge: 7 * 24 * 60 * 60 * 1000,
+                        httpOnly: true,
+                        signed: true,
+                        secure: true
+                    })
+                    sendSuccess(res, {
+                        message:"registered user",
+                        name: user.name,
+                        lastname: user.lastname,
+                        email: user.email,
+                        role: user.role
+                    }, 201)
+            }) (req, res, next)
+});
 
 //logear usurio
-authRouter.post("/login", async (req, res, next)=>{
-    try {
-        const {email, password} = req.body;
-        const user = await userManager.readBy({email, password});
-        if(!user){
-            throw new Error("Incorrect email or password.")
-        }
+authRouter.post(
+    "/login", (req, res, next) => {
+        passport.authenticate("localLogin", {session: false} ,(err, user, info) => {
+                if(err){
+                    return next(err)
+                }
+                if(!user){
+                    return next(new Error(info.message))
+                }
 
-        res.cookie("user", {
-            id: user._id,
-            email: user.email,
-            role: user.role,
-        },
-        {
-            maxAge: 7 * 24 * 60 * 60 * 1000,
-            httpOnly: true,
-            signed: true,
-            secure: true
-        })
+                const tokenData ={
+                    id: user._id,
+                    email: user.email,
+                    role: user.role
+                }
+                const token = createToken(tokenData)
 
-        sendSuccess(res, {
-            id: user._id,
-            email: user.email,
-            role: user.role,
-        },
-            201);
-    } catch (error) {
-        next(error)
-    }
+                res.cookie("token", token,
+                {
+                    maxAge: 7 * 24 * 60 * 60 * 1000,
+                    httpOnly: true,
+                    signed: true,
+                    secure: true
+                })
+                sendSuccess(res, {
+                    message:"Session started",
+                    id: user._id,
+                    email: user.email,
+                    role: user.role,
+                },
+                    200);
+        }) (req, res, next)
 })
 
 //Verifica usuario activo
-authRouter.get("/current", async (req, res, next)=>{
+authRouter.get("/current", async (req, res, next) => {
     try {
-        const current = req.signedCookies.user
-        if(!current){
+        
+        //Verificamos si existe un token dentro de las cookies
+        const token = req.signedCookies.token
+        if(!token){
             throw new Error("There is no active session");
         }
+
+        //Validamos el token
+        const dataToken = validateToken(token);
+
         sendSuccess(res,{
-            id: current.id,
-            email: current.email,
-            role: current.role,
+            id: dataToken.id,
+            email: dataToken.email,
+            role: dataToken.role,
         }, 200)
     } catch (error) {
         next(error)
@@ -77,14 +103,14 @@ authRouter.get("/current", async (req, res, next)=>{
 })
 
 //deslogear usuario
-authRouter.post("/logout", (req, res, next)=>{
+authRouter.post("/logout", (req, res, next) => {
     try {
-        const user = req.signedCookies.user;
+        const user = req.signedCookies.token;
         if(!user){
             throw new Error("There is no active session")
         }
 
-        res.clearCookie("user");
+        res.clearCookie("token");
 
         sendSuccess(res,{
             message: "logout successful"
@@ -97,3 +123,4 @@ authRouter.post("/logout", (req, res, next)=>{
 
 
 module.exports= authRouter;
+
