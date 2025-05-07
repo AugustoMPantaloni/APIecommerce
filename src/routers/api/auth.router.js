@@ -1,8 +1,4 @@
 const {Router} = require ("express")
-const validator = require('validator'); 
-
-//Manager de usuarios
-const {userManager} = require ("../../dao/manager")
 
 const sendSuccess = require ("../../helpers/responseHelper");
 const passport = require("passport");
@@ -32,7 +28,7 @@ authRouter.post(
                         maxAge: 7 * 24 * 60 * 60 * 1000,
                         httpOnly: true,
                         signed: true,
-                        secure: true
+                        secure: true 
                     })
                     sendSuccess(res, {
                         message:"registered user",
@@ -93,6 +89,7 @@ authRouter.get("/current", async (req, res, next) => {
         const dataToken = validateToken(token);
 
         sendSuccess(res,{
+            message: "Active session",
             id: dataToken.id,
             email: dataToken.email,
             role: dataToken.role,

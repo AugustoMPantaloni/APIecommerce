@@ -1,4 +1,5 @@
 //Dependencias
+require ("dotenv").config();
 const express = require("express");
 const {engine} = require ("express-handlebars");
 const morgan = require("morgan");
@@ -6,7 +7,6 @@ const cookieParser = require ("cookie-parser");
 const passport = require("passport");
 require("./middleware/passport.mid")
 const path = require("path");
-require ("dotenv").config();
 
 //Server Settings
 const server = express();
@@ -36,7 +36,7 @@ server.use(passport.initialize())
 const router = require("./routers/index.router");
 server.use("/", router)
 
-//Error controllers
+//Error middleware
 const pathHandler = require("./middleware/pathHandler.mid");
 const errorHandler = require("./middleware/errorHandler.mid");
 server.use(pathHandler); 

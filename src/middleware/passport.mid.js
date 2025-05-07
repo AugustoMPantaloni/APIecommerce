@@ -1,10 +1,17 @@
+const {userManager} = require ("../dao/manager")
+
+const {createHash, compareHash} = require ("../helpers/hash.helper")
+
+const validator = require ("validator");
+
+// Passport y estrategias
 const passport = require ("passport")
 const localStrategy = require ("passport-local").Strategy;
-const {createHash, compareHash} = require ("../helpers/hash.helper")
-const {userManager} = require ("../dao/manager")
-const validator = require ("validator")
+const ExtractJwt  = require("passport-jwt").ExtractJwt;
+const JwtStrategy = require ("passport-jwt").Strategy;
 
 
+// Estrategia de registro local 
 passport.use("localRegister", new localStrategy(
     {
     usernameField: "email",
@@ -45,8 +52,8 @@ passport.use("localRegister", new localStrategy(
 }
 ))
 
-
-passport.use("localLogin", new localStrategy (
+// Estrategia de login local 
+passport.use("localLogin", new localStrategy(
     {
         usernameField: "email",
         passwordField: "password",
@@ -71,5 +78,55 @@ passport.use("localLogin", new localStrategy (
         }
     }
 ))
+
+// Configuración común para estrategias JWT
+const opts = {
+    jwtFromRequest: ExtractJwt.fromExtractors([
+        req => req?.signedCookies?.token
+    ]),
+    secretOrKey: process.env.PASSWORD_JWT
+}
+// Estrategia para rutas protegidas solo para administradores
+passport.use("admin", new JwtStrategy(opts, async (jwt_payload, done) =>{
+    try {
+        const {email} = jwt_payload;
+
+        const user = await userManager.readBy({email});
+        if(!user){
+            return done(null, false,{message: "The user is not registered"})
+        }
+
+        if(user.role === "admin"){
+            return done(null, user)
+        } else{
+            return done(null, false, {message: "You are not authorized as admin"})
+        }
+    } catch (error) {
+        return done(error)
+    }
+})) 
+
+// Estrategia para rutas protegidas solo para usuarios comunes y administradores
+passport.use("user", new JwtStrategy(opts, async (jwt_payload, done) =>{
+    try {
+        const {email} = jwt_payload;
+
+        const user = await userManager.readBy({email});
+        if(!user){
+            return done(null, false,{message: "The user is not registered"})
+        }
+
+        if(user.role === "user" || user.role === "admin"){
+            return done(null, user)
+        } else{
+            return done(null, false, {message: "You do not have the required permissions"})
+        }
+    } catch (error) {
+        return done(error)
+    }
+})) 
+
+
+
 
 
