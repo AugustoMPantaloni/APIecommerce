@@ -1,4 +1,4 @@
-const express = require("express")
+const authByRole = require("../../middleware/authByRole")
 
 //manager 
 const {cartManager} = require("../../dao/manager")
@@ -8,9 +8,12 @@ const GenericController =  require("../../controllers/genericController");
 const cartControllerGeneric = new GenericController(cartManager);
 
 //Generador de rutas generico
-const generateGenericRouter = require ("../../helpers/generateGenericRouter")
+const generateGenericRouter = require ("../../helpers/generateGenericRouter");
 
 //Generamos las rutas mediante el generador
-const cartsRouter = generateGenericRouter(cartControllerGeneric)
+const cartsRouter = generateGenericRouter(
+    cartControllerGeneric,
+    authByRole("user")
+);
 
 module.exports = cartsRouter

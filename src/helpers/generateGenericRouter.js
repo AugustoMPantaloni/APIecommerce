@@ -1,13 +1,14 @@
 const { Router } = require("express");
+const checkTokenExists = require("../middleware/checkTokenExist"); //Midd que verifica si existe un token
 
 function generateGenericRouter(controller, authMiddleware = null) {
     const router = Router();
 
-    // Si hay authMiddleware, lo aplicamos en las rutas protegidas
+    // Si hay authMiddleware, lo aplicamos en las rutas protegidas 
     if (authMiddleware) {
-        router.post("/", authMiddleware, controller.createOne);
-        router.put("/:id", authMiddleware, controller.updateById);
-        router.delete("/:id", authMiddleware, controller.deleteById);
+        router.post("/", checkTokenExists, authMiddleware, controller.createOne);
+        router.put("/:id", checkTokenExists, authMiddleware, controller.updateById);
+        router.delete("/:id", checkTokenExists, authMiddleware, controller.deleteById);
     } else {
         router.post("/", controller.createOne);
         router.put("/:id", controller.updateById);

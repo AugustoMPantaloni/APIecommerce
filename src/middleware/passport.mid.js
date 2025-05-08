@@ -113,7 +113,7 @@ passport.use("user", new JwtStrategy(opts, async (jwt_payload, done) =>{
 
         const user = await userManager.readBy({email});
         if(!user){
-            return done(null, false,{message: "The user is not registered"})
+            return done(null, false, {message: "The user is not registered"})
         }
 
         if(user.role === "user" || user.role === "admin"){
