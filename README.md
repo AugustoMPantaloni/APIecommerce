@@ -79,8 +79,8 @@ DELETE /api/products/:pid
 
 🔧 Pasos para Configurar el Proyecto
 - Clonar el repositorio :
-    git clone https://github.com/tu-usuario/tu-repo-ecommerce.git
-    cd tu-repo-ecommerce
+    git clone https://github.com/AugustoMPantaloni/APIecommerce
+    cd nombreDeTuCarpeta
 
 - Instalar dependencias:
         npm install
