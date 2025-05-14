@@ -4,18 +4,27 @@ const sendSuccess = require ("../../helpers/responseHelper");
 const passport = require("passport");
 const {createToken, validateToken} = require ("../../helpers/jwt.helper")
 
+const {cartManager, userManager} = require("../../dao/manager");
+
+
+
+
 const authRouter = Router();
 
 //Registrar usuario
 authRouter.post(
         "/register", (req, res, next) => {
-            passport.authenticate("localRegister", {session: false}, (err, user, info) => {
+            passport.authenticate("localRegister", {session: false}, async (err, user, info) => {
                     if(err){
                         return next(err);
                     }
                     if(!user){
                         return next(new Error(info.message))
                     }
+
+                    const newCart = await cartManager.createOne();
+
+                    await userManager.updateById(user._id, {cart: newCart._id});
 
                     const tokenData ={
                         id: user._id,
