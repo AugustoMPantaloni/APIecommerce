@@ -71,3 +71,57 @@ DELETE /api/products/:pid
 - DB: MongoDB.
 - Patrones: Arquitectura por capas, DRY (Don't Repeat Yourself).
 
+🛠 Instalación
+📋 Requisitos Previos
+- Node.js (v18 o superior) → Descargar
+- MongoDB (local o Atlas) → Guía de instalación
+- Git (opcional, pero recomendado)
+
+🔧 Pasos para Configurar el Proyecto
+- Clonar el repositorio :
+    git clone https://github.com/tu-usuario/tu-repo-ecommerce.git
+    cd tu-repo-ecommerce
+
+- Instalar dependencias:
+        npm install
+# o usando yarn (si lo prefieres)
+yarn install
+
+- Configurar variables de entorno:
+Crea un archivo .env en la raíz del proyecto basado en el ejemplo (.env.example):
+    cp .env.example .env
+
+- Edita .env con tus credenciales:
+# MongoDB (local o Atlas)
+    MONGO_URI=mongodb://localhost:27017/nombre_db
+# Autenticación JWT
+    JWT_SECRET=tu_clave_secreta_jwt
+    COOKIE_SECRET=clave_secreta_cookies
+# Opcional: Configuración de puerto
+    PORT=8080
+
+- Iniciar el servidor:
+    npm run dev  # Modo desarrollo (con nodemon)
+# o
+    npm start    # Modo producción
+
+- ¡Listo! La API estará corriendo en:
+    http://localhost:8080  # (o el puerto que hayas configurado)
+
+🔍 Verificación
+- Prueba los endpoints básicos:
+    curl http://localhost:8080/api/products  # Debería devolver un listado de productos (o un array vacío si no hay datos).
+
+⚠️ **Atención**  
+Antes de ejecutar el proyecto, asegúrate de:  
+- Tener un archivo `.env` válido en la raíz.  
+- Haber reemplazado TODOS los valores de ejemplo (ej: `your_password`) por tus credenciales reales.  
+
+📜 Scripts Disponibles
+Estos son los comandos definidos en package.json para gestionar la API:
+
+    Comando	     Descripción	                                                                 Ejecución
+
+    npm start	 Inicia el servidor en modo producción (usando Node.js).	                     node src/server.js
+    npm run dev	 Inicia el servidor en modo desarrollo (con nodemon para reinicio automático).	 nodemon src/server.js
+    npm test	 ⚠️ Pendiente: Ejecuta tests (aún no implementados).	                        (Proximamente)
