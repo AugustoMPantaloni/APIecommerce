@@ -84,8 +84,6 @@ DELETE /api/products/:pid
 
 - Instalar dependencias:
         npm install
-# o usando yarn (si lo prefieres)
-yarn install
 
 - Configurar variables de entorno:
 Crea un archivo .env en la raíz del proyecto basado en el ejemplo (.env.example):
