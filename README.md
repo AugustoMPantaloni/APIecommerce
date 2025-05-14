@@ -22,6 +22,7 @@ Arquitectura limpia, escalable y con autenticación JWT
 
 🏗 Arquitectura
 
+```mermaid
 flowchart TD
   A[Modelos] --> B[Managers]
   B --> C[Controladores]
@@ -29,6 +30,7 @@ flowchart TD
   C --> E[Passport/JWT]
   D --> F[Rutas HTTP]
   E --> F
+```
 
 - Models (Product, User, Cart):
 Definiciones de esquemas en Mongoose.
