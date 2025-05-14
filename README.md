@@ -1,4 +1,5 @@
-![Diagrama de código](https://gitdiagram.com/augustompantaloni/newapi)
+!Diagrama de código
+https://gitdiagram.com/augustompantaloni/newapi
 Este diagrama muestra cómo están organizados los archivos y cómo se conectan entre sí.
 
 🚀 E-commerce API (Node.js + MongoDB)
