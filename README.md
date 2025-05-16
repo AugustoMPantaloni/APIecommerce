@@ -122,3 +122,18 @@ Estos son los comandos definidos en package.json para gestionar la API:
     npm start	 Inicia el servidor en modo producción (usando Node.js).	                     node src/server.js
     npm run dev	 Inicia el servidor en modo desarrollo (con nodemon para reinicio automático).	 nodemon src/server.js
     npm test	 ⚠️ Pendiente: Ejecuta tests (aún no implementados).	                        (Proximamente)
+
+## Colecciones de Postman
+
+Para facilitar las pruebas de la API, se incluyen colecciones de Postman listas para importar.
+
+### Cómo importar la colección
+
+1. Descargar la colección desde la carpeta `postman` en este repositorio.
+2. Abrir Postman.
+3. Hacer clic en el botón **Import** en la parte superior izquierda.
+4. Seleccionar el archivo `.json` de la colección descargada.
+5. ¡Listo! Podrás probar todas las rutas con su configuración ya lista.
+
+---
+

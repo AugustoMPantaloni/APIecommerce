@@ -1,0 +1,170 @@
+{
+	"info": {
+		"_postman_id": "1603146b-a06c-43b5-a146-9fbbc7fcc49f",
+		"name": "Peticiones HTTP Carts",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42341850"
+	},
+	"item": [
+		{
+			"name": "Crear un carrito",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/carts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar un producto a un carrito",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/carts/addToCart/:pId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carts",
+						"addToCart",
+						":pId"
+					],
+					"variable": [
+						{
+							"key": "pId",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar un carrito por su ID",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/carts/\"\"\"IdCart\"\"\"",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carts",
+						"\"\"\"IdCart\"\"\""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar la cantidad de un producto dentro de un carrito",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"quantity\": 5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/carts/\"\"\":cid\"\"\"/products/\"\"\":pid\"\"\"",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carts",
+						"\"\"\":cid\"\"\"",
+						"products",
+						"\"\"\":pid\"\"\""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Vaciar un carro de compras",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/carts/\"\"\"IDcart\"\"\"",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carts",
+						"\"\"\"IDcart\"\"\""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un producto del carro de compras",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/carts/\"\"\":cid\"\"\"/product/\"\"\":pid\"\"\"",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carts",
+						"\"\"\":cid\"\"\"",
+						"product",
+						"\"\"\":pid\"\"\""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
