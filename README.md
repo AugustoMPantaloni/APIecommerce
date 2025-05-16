@@ -16,7 +16,6 @@ Arquitectura limpia, escalable y con autenticación JWT
 
 🔜 Futuras implementaciones:
 
-- Agregar producto al carrito.
 - Vaciar carrito.
 - Eliminar producto específico del carrito.
 - Validaciones extras basicas.

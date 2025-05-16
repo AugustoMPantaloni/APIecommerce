@@ -6,9 +6,6 @@ const {createToken, validateToken} = require ("../../helpers/jwt.helper")
 
 const {cartManager, userManager} = require("../../dao/manager");
 
-
-
-
 const authRouter = Router();
 
 //Registrar usuario
