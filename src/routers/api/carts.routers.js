@@ -4,7 +4,6 @@ const authByRole = require("../../middleware/authByRole")
 //manager 
 const {cartManager, productManager} = require("../../dao/manager")
 
-
 //Controlador generico
 const GenericController =  require("../../controllers/genericController");
 const cartControllerGeneric = new GenericController(cartManager);
@@ -61,7 +60,6 @@ cartsActionsRouter.post("/addToCart/:pId", checkTokenExists, authByRole("user"),
         next(error)
     }
 })
-
 
 module.exports = {
     cartsRouter,
