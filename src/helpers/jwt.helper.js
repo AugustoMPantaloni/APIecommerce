@@ -1,3 +1,5 @@
+//Funciones para crear y validar tokens
+
 const jwt = require("jsonwebtoken");
 
 

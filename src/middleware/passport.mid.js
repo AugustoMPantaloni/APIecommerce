@@ -1,4 +1,4 @@
-const {userManager} = require ("../dao/manager")
+const {userManager} = require ("../manager/manager")
 
 const {createHash, compareHash} = require ("../helpers/hash.helper")
 

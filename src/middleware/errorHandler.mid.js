@@ -1,3 +1,5 @@
+//Middleware para manejar los errores
+
 const errorHandler =(error, req, res, next) =>{
     const data = {
         method: req.method,

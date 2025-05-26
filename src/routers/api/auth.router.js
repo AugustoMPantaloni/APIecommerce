@@ -4,7 +4,7 @@ const sendSuccess = require ("../../helpers/responseHelper");
 const passport = require("passport");
 const {createToken, validateToken} = require ("../../helpers/jwt.helper")
 
-const {cartManager, userManager} = require("../../dao/manager");
+const {cartManager, userManager} = require("../../manager/manager");
 
 const authRouter = Router();
 

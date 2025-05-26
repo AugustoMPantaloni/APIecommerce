@@ -1,3 +1,5 @@
+//Middleware para dar informacion sobre la ruta a la que se hace la peticion
+
 const pathHandler = (req, res) => {
     const message = "Not Found URL";
     const data = {

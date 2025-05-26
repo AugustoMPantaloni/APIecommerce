@@ -1,6 +1,7 @@
+//Funcion para hashear contraseña
+
 const bcrypt = require ("bcrypt");
 
-//Funcion para hashear contraseña
 const createHash = async (password) => {
     const hashedPassword = await bcrypt.hash (password, 10);
     return hashedPassword;
