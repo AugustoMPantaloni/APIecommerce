@@ -79,6 +79,7 @@ passport.use("localLogin", new localStrategy(
     }
 ))
 
+
 // Configuración común para estrategias JWT
 const opts = {
     jwtFromRequest: ExtractJwt.fromExtractors([

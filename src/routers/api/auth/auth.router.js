@@ -1,12 +1,18 @@
 const {Router} = require ("express")
-
-const sendSuccess = require ("../../helpers/responseHelper");
-const passport = require("passport");
-const {createToken, validateToken} = require ("../../helpers/jwt.helper")
-
-const {cartManager, userManager} = require("../../manager/manager");
-
 const authRouter = Router();
+
+//Manager
+const {cartManager, userManager} = require("../../../manager/manager");
+//Helper para respuestas estandar
+const sendSuccess = require ("../../../helpers/responseHelper");
+//Helper para crear y validar tokens
+const {createToken, validateToken} = require ("../../../helpers/jwt.helper")
+//Middleware Passport para la creacion y login de usuarios
+const passport = require("passport");
+//Servicios de auth
+const AuthService = require ("../../../services/auth.service")
+const authService  = new AuthService (cartManager, userManager)
+
 
 //Registrar usuario
 authRouter.post(
@@ -19,14 +25,13 @@ authRouter.post(
                         return next(new Error(info.message))
                     }
 
-                    const newCart = await cartManager.createOne();
-
-                    await userManager.updateById(user._id, {cart: newCart._id});
+                    //Logica para crear un carrito derivada al servicio de auth
+                    const newUser = await authService.registerUser(user);
 
                     const tokenData ={
-                        id: user._id,
-                        email: user.email,
-                        role: user.role
+                        id: newUser._id,
+                        email: newUser.email,
+                        role: newUser.role
                     }
                     const token = createToken(tokenData);
 
@@ -38,10 +43,10 @@ authRouter.post(
                     })
                     sendSuccess(res, {
                         message:"registered user",
-                        name: user.name,
-                        lastname: user.lastname,
-                        email: user.email,
-                        role: user.role
+                        name: newUser.name,
+                        lastname: newUser.lastname,
+                        email: newUser.email,
+                        role: newUser.role
                     }, 201)
             }) (req, res, next)
 });

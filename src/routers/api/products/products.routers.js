@@ -1,14 +1,14 @@
-const authByRole = require("../../middleware/authByRole")
+const authByRole = require("../../../middleware/authByRole")
 
 //Manger
-const  {productManager } = require ("../../manager/manager");
+const  {productManager } = require ("../../../manager/manager");
 
 //Controlador generico
-const GenericController = require ("../../controllers/genericController");
+const GenericController = require ("../../../controllers/genericController");
 const ProductControllerGeneric = new GenericController(productManager)
 
 //Generador de rutas generico
-const generateGenericRouter = require("../generateGenericRouter");
+const generateGenericRouter = require("../../generateGenericRouter");
 
 //Generamos las rutas mediante el generador 
 const productsRouter = generateGenericRouter(
