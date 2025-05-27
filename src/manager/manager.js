@@ -34,6 +34,7 @@ class Manager {
     readAll = async (filter) => await this.model.find(filter).lean();
     readBy = async (filter) => await this.model.findOne(filter).lean();
     readById = async (id) => await this.model.findById(id).lean();
+    readByIdPopulate = async (id, populateOptions) => await this.model.findById(id).populate(populateOptions).lean();
     updateById = async (id, data) => await this.model.findByIdAndUpdate(id, data, {new: true}).lean();
     deleteById = async (id) => await this.model.findByIdAndDelete(id);
 }

@@ -38,7 +38,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/carts/addToCart/:pId",
+					"raw": "http://localhost:8080/api/carts/actions/addToCart/:pId",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -47,6 +47,7 @@
 					"path": [
 						"api",
 						"carts",
+						"actions",
 						"addToCart",
 						":pId"
 					],
@@ -87,7 +88,7 @@
 		{
 			"name": "Actualizar la cantidad de un producto dentro de un carrito",
 			"request": {
-				"method": "PUT",
+				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -99,7 +100,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/carts/\"\"\":cid\"\"\"/products/\"\"\":pid\"\"\"",
+					"raw": "http://localhost:8080/api/carts/actions/quantity/:pId",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -108,9 +109,15 @@
 					"path": [
 						"api",
 						"carts",
-						"\"\"\":cid\"\"\"",
-						"products",
-						"\"\"\":pid\"\"\""
+						"actions",
+						"quantity",
+						":pId"
+					],
+					"variable": [
+						{
+							"key": "pId",
+							"value": ""
+						}
 					]
 				}
 			},
@@ -122,10 +129,10 @@
 				"auth": {
 					"type": "noauth"
 				},
-				"method": "DELETE",
+				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/carts/\"\"\"IDcart\"\"\"",
+					"raw": "http://localhost:8080/api/carts/actions/emptyCart",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -134,7 +141,8 @@
 					"path": [
 						"api",
 						"carts",
-						"\"\"\"IDcart\"\"\""
+						"actions",
+						"emptyCart"
 					]
 				}
 			},

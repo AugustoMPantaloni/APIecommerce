@@ -16,9 +16,7 @@ Arquitectura limpia, escalable y con autenticación JWT
 
 🔜 Futuras implementaciones:
 
-- Vaciar carrito.
 - Eliminar producto específico del carrito.
-- Validaciones extras basicas.
 
 🏗 Arquitectura
 
@@ -46,23 +44,6 @@ Genera rutas CRUD automáticas para modelos simples.
 
 - Auth:
 Passport.js + JWT para autenticación
-
-📄 Endpoints
-🔐 Autenticación
-Método	 Ruta	                   Descripción
-POST	 /auth/register	Registro   (crea usuario + carrito automático).
-POST	 /auth/login	Login      (devuelve token en cookie).
-
-🛒 Carritos (Ejemplo de endpoints no genéricos)
-Método	  Ruta	                     Descripción	                Estado
-POST	  /api/carts/:cid/products	Agregar producto al carrito.	🔜 Pendiente
-DELETE	  /api/carts/:cid	        Vaciar carrito.	                🔜 Pendiente
-
-🛍 Productos/Usuarios (Rutas generadas por GenericRouter)
-GET    /api/products
-POST   /api/products
-PUT    /api/products/:pid
-DELETE /api/products/:pid
 
 🛠 Tecnologías
 - Backend: Node.js, Express, Mongoose.

@@ -15,6 +15,6 @@ const personalizedCartRouter = require ("./api/carts/personalizedCart.router")
 const authRouter = require ("./api/auth/auth.router");
 
 apiRouter.use("/auth", authRouter);
-apiRouter.use("/carts", personalizedCartRouter)
+apiRouter.use("/carts/actions", personalizedCartRouter)
 
 module.exports = apiRouter;

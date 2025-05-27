@@ -37,8 +37,7 @@ const ProductsSchema = new mongoose.Schema(
         },
         status:{
             type: Boolean,
-            required: true,
-            default: true
+            required: true
         },
         category:{
             type: String,
