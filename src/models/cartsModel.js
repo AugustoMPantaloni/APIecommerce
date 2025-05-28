@@ -2,7 +2,7 @@ const mongoose = require ("mongoose")
 
 const CartsSchema = new mongoose.Schema(
     {
-        cart:[
+        items:[
             {
                 _id: false,
                 product:{

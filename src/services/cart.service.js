@@ -8,23 +8,22 @@ class CartService {
     async addProductToCart (user, pId){
         if(!user) throw new Error("You need to be registered and logged in to add products to your cart.");
 
-        //Buscar el carrito
         const cart = await this.cartManager.readById(user.cart);
         if(!cart) throw new Error("Cart not found.");
 
-        //Buscar el producto
         const product = await this.productManager.readById(pId);
         if(!product) throw new Error("Product not found.");
 
-        //Verificamos si ya existe el producto en el carrito
-        const existsProduct  = cart.cart.find (p => p.product.toString() === pId);
+        const existsProduct  = cart.items.find (p => p.product.toString() === pId);
         if(existsProduct){
             existsProduct.quantity += 1;
         } else{
-            cart.cart.push({product: pId, quantity: 1})
+            cart.items.push({product: pId, quantity: 1})
         }
 
-        await this.cartManager.updateById(user.cart, { cart: cart.cart });
+        await this.cartManager.updateById(user.cart, { items: cart.items });
+        const populateCart = await this.cartManager.readByIdPopulate(cart, {path:"items.product", select:"title price" })
+        return populateCart
     }
 
     //Aumenta la cantidad de un producto en el carrito, si no existe lo agrega
@@ -45,7 +44,7 @@ class CartService {
             throw new Error("Quantity must be a positive number.")
         }
 
-        const productExist = cart.cart.find(p => p.product.toString() === pId)
+        const productExist = cart.items.find(p => p.product.toString() === pId)
         if(productExist){
             if(productExist.quantity + qty > product.stock){
                 throw new Error("There is not enough stock")
@@ -55,14 +54,14 @@ class CartService {
                 if(qty > product.stock){
                     throw new Error("There is not enough stock")
                 }
-                cart.cart.push({
+                cart.items.push({
                     product: pId,
                     quantity: qty
                 })
             }
 
-        await this.cartManager.updateById(cart._id, {cart: cart.cart})
-        const populateCart = await this.cartManager.readByIdPopulate(user.cart, {path:"cart.product", select:"title price" })
+        await this.cartManager.updateById(cart._id, {items: cart.items})
+        const populateCart = await this.cartManager.readByIdPopulate(cart, {path:"items.product", select:"title price" })
 
         return populateCart;
     }
@@ -75,12 +74,13 @@ class CartService {
         const cart = await this.cartManager.readById(user.cart)
         if(!cart) throw new Error("Cart not found.")
 
-        const emptyCart = await this.cartManager.updateById(cart._id, {cart: []});
+        const emptyCart = await this.cartManager.updateById(cart._id, {items: []});
 
         return emptyCart;
     }
 
-    async removeProduct(user, productId){
+    //Elimina un solo producto del carrito de compras
+    async removeProduct(user, pId){
 
         if(!user) throw new Error("You need to be registered and logged in to add products to your cart.");
         
@@ -89,18 +89,18 @@ class CartService {
             throw new Error("Cart not found.")
         }
 
-        if(!productId){
+        if(!pId){
             throw new Error("Product not found.")
         }
 
-        const originalLength = cart.cart.length
+        const originalLength = cart.items.length
         
-        const remainingProducts = cart.cart.filter(p => p.product._id.toString() !== productId)
+        const remainingProducts = cart.items.filter(p => p.product.toString() !== pId)
         if(remainingProducts.length === originalLength){
             throw new Error("The product could not be deleted or the product does not exist in the cart.")
         }
 
-        const updatedCartItems =  await this.cartManager.updateById(cart._id, {cart: remainingProducts})
+        const updatedCartItems =  await this.cartManager.updateById(cart._id, {items: remainingProducts})
         return updatedCartItems
     }
 }

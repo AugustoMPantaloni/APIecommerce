@@ -20,10 +20,11 @@ personalizedCartRouter.post("/addToCart/:pId", checkTokenExists, authByRole("use
         const user = req.user;
         const {pId} = req.params;
 
-        await cartService.addProductToCart(user, pId);
+        const populateCart = await cartService.addProductToCart(user, pId);
 
         sendSuccess(res, {
-            message: "Product added successfully"
+            message: "Product added successfully",
+            cart: populateCart
         }, 200)
     } catch (error) {
         next(error)
@@ -66,12 +67,13 @@ personalizedCartRouter.put("/emptyCart", checkTokenExists, authByRole("user"), a
     }
 })
 
-personalizedCartRouter.delete("/removeProduct/:productId", checkTokenExists, authByRole("user"), async (req, res, next) =>{
+//Elimina un solo producto del carrito de compras
+personalizedCartRouter.delete("/removeProduct/:pId", checkTokenExists, authByRole("user"), async (req, res, next) =>{
     try {
         const user = req.user;
-        const {productId} = req.params;
+        const {pId} = req.params;
 
-        const updatedCartItems =  await cartService. removeProduct(user, productId)
+        const updatedCartItems =  await cartService. removeProduct(user, pId)
 
         sendSuccess(res, {
             message: "Product successfully removed",
