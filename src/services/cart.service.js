@@ -79,6 +79,30 @@ class CartService {
 
         return emptyCart;
     }
+
+    async removeProduct(user, productId){
+
+        if(!user) throw new Error("You need to be registered and logged in to add products to your cart.");
+        
+        const cart = await this.cartManager.readById(user.cart)
+        if(!cart){
+            throw new Error("Cart not found.")
+        }
+
+        if(!productId){
+            throw new Error("Product not found.")
+        }
+
+        const originalLength = cart.cart.length
+        
+        const remainingProducts = cart.cart.filter(p => p.product._id.toString() !== productId)
+        if(remainingProducts.length === originalLength){
+            throw new Error("The product could not be deleted or the product does not exist in the cart.")
+        }
+
+        const updatedCartItems =  await this.cartManager.updateById(cart._id, {cart: remainingProducts})
+        return updatedCartItems
+    }
 }
 
 module.exports = CartService;

@@ -66,5 +66,20 @@ personalizedCartRouter.put("/emptyCart", checkTokenExists, authByRole("user"), a
     }
 })
 
+personalizedCartRouter.delete("/removeProduct/:productId", checkTokenExists, authByRole("user"), async (req, res, next) =>{
+    try {
+        const user = req.user;
+        const {productId} = req.params;
+
+        const updatedCartItems =  await cartService. removeProduct(user, productId)
+
+        sendSuccess(res, {
+            message: "Product successfully removed",
+            cart : updatedCartItems
+        }, 200)
+    } catch (error) {
+        next(error)
+    }
+})
 
 module.exports = personalizedCartRouter
