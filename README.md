@@ -19,12 +19,12 @@ Arquitectura limpia, escalable y con autenticación JWT
 - Eliminar producto específico del carrito.
 
 🏗 Arquitectura
-
+![Diagrama del proyecto](./assets/Arquitectura%20por%20capas.drawio)
 ```mermaid
 flowchart TD
-  A[Modelos] --> B[Managers]
+  A[Modelos] --> B[DAO]
   B --> C[Controladores]
-  C --> D[Generador de Rutas Genéricas]
+  C --> D[Router]
   C --> E[Passport/JWT]
   D --> F[Rutas HTTP]
   E --> F
@@ -33,14 +33,20 @@ flowchart TD
 - Models (Product, User, Cart):
 Definiciones de esquemas en Mongoose.
 
-- Managers:
-Lógica de negocio (ej: CartManager.createCart()).
+- DAO:
+Operaciones CRUD sobre la persistencia de los datos (en este caso DB).
 
 - Controllers:
-Adaptan managers a respuestas HTTP.
+Adaptan DAO a respuestas HTTP.
+
+- Services
+Logica de negocios
 
 - GenericRouter:
 Genera rutas CRUD automáticas para modelos simples.
+
+- Personalized rutes
+Rutas personalizadas que requieren a los servicios.
 
 - Auth:
 Passport.js + JWT para autenticación

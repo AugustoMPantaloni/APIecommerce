@@ -1,7 +1,7 @@
 /* Documentacion *
-*  Generic Manager Class
+*  Generic daoDb Class
 *
-* Este Manager genérico permite realizar operaciones CRUD sobre cualquier modelo de Mongoose,
+* Este daoDb genérico permite realizar operaciones CRUD en la DB sobre cualquier modelo de Mongoose,
 * de forma reutilizable y desacoplada de la lógica del controlador.
 *
 * Métodos disponibles:
@@ -18,15 +18,15 @@
 * - Fácil de extender (paginación, población, validaciones, etc.)
 *
 * Ejemplo de uso:
-* const productManager = new Manager(ProductModel);
-* const cartManager = new Manager(CartModel);
+* const productDaoDb = new daoDb(ProductModel);
+* const cartDaoDb = new daoDb(CartModel);
 */
 
 const ProductModel = require ("../models/productsModel");
 const CartModel = require ("../models/cartsModel");
 const UsersModel = require ("../models/usersModel");
 
-class Manager {
+class DaoDb {
     constructor(model){
         this.model = model
     }
@@ -39,12 +39,12 @@ class Manager {
     deleteById = async (id) => await this.model.findByIdAndDelete(id);
 }
 
-const productManager = new Manager(ProductModel);
-const cartManager = new Manager(CartModel);
-const userManager = new Manager(UsersModel);
+const productDaoDb = new DaoDb(ProductModel);
+const cartDaoDb = new DaoDb(CartModel);
+const userDaoDb = new DaoDb(UsersModel);
 
 module.exports = {
-    productManager,
-    cartManager,
-    userManager,
+    productDaoDb,
+    cartDaoDb,
+    userDaoDb,
 }

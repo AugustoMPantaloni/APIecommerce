@@ -1,5 +1,5 @@
-//manager 
-const {cartManager, productManager} = require("../../../manager/manager")
+//DAO
+const {cartDao, productDao} = require ("../../../factory/factory")
 //Helper para respuestas estandar
 const sendSuccess = require("../../../helpers/responseHelper")
 //Middleware para validar token (para personalizar errores)
@@ -8,7 +8,7 @@ const checkTokenExists = require ("../../../middleware/checkTokenExist");
 const authByRole = require("../../../middleware/authByRole")
 //Servicios de cart
 const CartService = require ("../../../services/cart.service")
-const cartService = new CartService(cartManager, productManager)
+const cartService = new CartService(cartDao, productDao)
 
 //Rutas
 const {Router} = require ("express");

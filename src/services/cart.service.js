@@ -1,17 +1,17 @@
 class CartService {
-    constructor(cartManager, productManager){
-        this.cartManager = cartManager;
-        this.productManager = productManager;
+    constructor(cartDao, productDao){
+        this.cartDao = cartDao;
+        this.productDao = productDao;
     }
 
     //Agrega un producto al carrito, si ya existe aumenta su cantidad
     async addProductToCart (user, pId){
         if(!user) throw new Error("You need to be registered and logged in to add products to your cart.");
 
-        const cart = await this.cartManager.readById(user.cart);
+        const cart = await this.cartDao.readById(user.cart);
         if(!cart) throw new Error("Cart not found.");
 
-        const product = await this.productManager.readById(pId);
+        const product = await this.productDao.readById(pId);
         if(!product) throw new Error("Product not found.");
 
         const existsProduct  = cart.items.find (p => p.product.toString() === pId);
@@ -21,8 +21,8 @@ class CartService {
             cart.items.push({product: pId, quantity: 1})
         }
 
-        await this.cartManager.updateById(user.cart, { items: cart.items });
-        const populateCart = await this.cartManager.readByIdPopulate(cart, {path:"items.product", select:"title price" })
+        await this.cartDao.updateById(user.cart, { items: cart.items });
+        const populateCart = await this.cartDao.readByIdPopulate(cart, {path:"items.product", select:"title price" })
         return populateCart
     }
 
@@ -33,10 +33,10 @@ class CartService {
 
         if(!user) throw new Error("You need to be registered and logged in to add products to your cart.");
 
-        const cart = await this.cartManager.readById(user.cart)
+        const cart = await this.cartDao.readById(user.cart)
         if(!cart) throw new Error("Cart not found.")
         
-        const product = await this.productManager.readById(pId)
+        const product = await this.productDao.readById(pId)
         if(!product) throw new Error("Product not found.")
         
 
@@ -60,8 +60,8 @@ class CartService {
                 })
             }
 
-        await this.cartManager.updateById(cart._id, {items: cart.items})
-        const populateCart = await this.cartManager.readByIdPopulate(cart, {path:"items.product", select:"title price" })
+        await this.cartDao.updateById(cart._id, {items: cart.items})
+        const populateCart = await this.cartDao.readByIdPopulate(cart, {path:"items.product", select:"title price" })
 
         return populateCart;
     }
@@ -71,10 +71,10 @@ class CartService {
 
         if(!user) throw new Error("You need to be registered and logged in to add products to your cart.");
         
-        const cart = await this.cartManager.readById(user.cart)
+        const cart = await this.cartDao.readById(user.cart)
         if(!cart) throw new Error("Cart not found.")
 
-        const emptyCart = await this.cartManager.updateById(cart._id, {items: []});
+        const emptyCart = await this.cartDao.updateById(cart._id, {items: []});
 
         return emptyCart;
     }
@@ -84,7 +84,7 @@ class CartService {
 
         if(!user) throw new Error("You need to be registered and logged in to add products to your cart.");
         
-        const cart = await this.cartManager.readById(user.cart)
+        const cart = await this.cartDao.readById(user.cart)
         if(!cart){
             throw new Error("Cart not found.")
         }
@@ -100,7 +100,7 @@ class CartService {
             throw new Error("The product could not be deleted or the product does not exist in the cart.")
         }
 
-        const updatedCartItems =  await this.cartManager.updateById(cart._id, {items: remainingProducts})
+        const updatedCartItems =  await this.cartDao.updateById(cart._id, {items: remainingProducts})
         return updatedCartItems
     }
 }

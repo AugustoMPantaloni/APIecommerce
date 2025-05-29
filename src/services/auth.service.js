@@ -1,14 +1,14 @@
 class AuthService {
-    constructor (cartManager, userManager){
-        this.cartManager = cartManager;
-        this.userManager = userManager;
+    constructor (cartDao, userDao){
+        this.cartDao = cartDao;
+        this.userDao = userDao;
     }
 
     async registerUser (user){
-        const newCart = await this.cartManager.createOne();
-        await this.userManager.updateById(user._id, {cart: newCart._id});
+        const newCart = await this.cartDao.createOne();
+        await this.userDao.updateById(user._id, {cart: newCart._id});
 
-        const UpdateUser  = await this.userManager.readById(user._id)
+        const UpdateUser  = await this.userDao.readById(user._id)
         return UpdateUser;
     }
 }

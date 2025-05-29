@@ -2,7 +2,7 @@
 * GenericController
 * 
 * Este controlador genérico implementa operaciones CRUD estándar para manejar las peticiones HTTP
-* utilizando un `manager` inyectado (una instancia de la clase Manager).
+* utilizando un `dao` inyectado (una instancia de la clase dao).
 * 
 * Métodos implementados:
 * - createOne(req, res, next): Crea un nuevo documento con los datos del body.
@@ -21,8 +21,8 @@
 const sendSuccess = require("../helpers/responseHelper")
 
 class GenericController {
-    constructor (manager){
-        this.manager = manager
+    constructor (dao){
+        this.dao = dao
 
         this.createOne = this.createOne.bind(this);
         this.readAll = this.readAll.bind(this)
@@ -35,7 +35,7 @@ class GenericController {
     async createOne (req, res, next) {
         try {
             const data = req.body;
-            const result = await this.manager.createOne(data)
+            const result = await this.dao.createOne(data)
             sendSuccess(res, result, 201)
         } catch (error){
             next(error)
@@ -44,7 +44,7 @@ class GenericController {
     async readAll (req, res, next){
         try {
             const filter = req.query
-            const result = await this.manager.readAll(filter)
+            const result = await this.dao.readAll(filter)
             sendSuccess(res, result, 200)
         } catch (error) {
             next(error)
@@ -53,7 +53,7 @@ class GenericController {
     async readBy(req, res, next) {
         try {
             const filter = req.query
-            const result = await this.manager.readBy(filter)
+            const result = await this.dao.readBy(filter)
             sendSuccess(res, result, 200)
         } catch (error) {
             next(error)
@@ -62,7 +62,7 @@ class GenericController {
     async readById(req, res, next) {
         try {
             const {id} = req.params 
-            const result = await this.manager.readById(id)
+            const result = await this.dao.readById(id)
             sendSuccess(res, result, 200)
         } catch (error) {
             next(error)
@@ -72,7 +72,7 @@ class GenericController {
         try {
             const {id} = req.params 
             const data = req.body
-            const result = await this.manager.updateById(id, data)
+            const result = await this.dao.updateById(id, data)
             sendSuccess(res, result, 200)
         } catch (error) {
             next(error)
@@ -81,7 +81,7 @@ class GenericController {
     async deleteById(req, res ,next){
         try {
             const {id} = req.params
-            const result = await this.manager.deleteById(id)
+            const result = await this.dao.deleteById(id)
             sendSuccess(res, result, 200)
         } catch (error) {
             next(error)

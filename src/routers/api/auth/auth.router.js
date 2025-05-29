@@ -1,8 +1,8 @@
 const {Router} = require ("express")
 const authRouter = Router();
 
-//Manager
-const {cartManager, userManager} = require("../../../manager/manager");
+//Dao
+const {cartDao, userDao} = require ("../../../factory/factory")
 //Helper para respuestas estandar
 const sendSuccess = require ("../../../helpers/responseHelper");
 //Helper para crear y validar tokens
@@ -11,7 +11,7 @@ const {createToken, validateToken} = require ("../../../helpers/jwt.helper")
 const passport = require("passport");
 //Servicios de auth
 const AuthService = require ("../../../services/auth.service")
-const authService  = new AuthService (cartManager, userManager)
+const authService  = new AuthService (cartDao, userDao)
 
 
 //Registrar usuario

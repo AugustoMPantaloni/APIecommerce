@@ -15,9 +15,6 @@ server.listen(PORT,()=>{
     console.log(`Servidor corriendo en puerto ${PORT}`)
 });
 
-//DataBase Setting
-const connectDB = require ("./config/db");
-connectDB();
 
 //Engine Settings
 server.engine("handlebars", engine());

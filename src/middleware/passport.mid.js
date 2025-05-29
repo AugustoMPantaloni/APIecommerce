@@ -1,4 +1,4 @@
-const {userManager} = require ("../manager/manager")
+const {userDao} = require ("../factory/factory")
 
 const {createHash, compareHash} = require ("../helpers/hash.helper")
 
@@ -34,7 +34,7 @@ passport.use("localRegister", new localStrategy(
         }
 
         //Verificamos si el usuario ya existe
-        const validateUser = await userManager.readBy({ email });
+        const validateUser = await userDao.readBy({ email });
         if(validateUser){
             return done(null, false,{message: "Email already registered"})
         }
@@ -43,7 +43,7 @@ passport.use("localRegister", new localStrategy(
         const passwordHashed = await createHash(password);
 
         //Creamos el usuario
-        const user = await userManager.createOne({name, lastname, email, password: passwordHashed, role: role || "user"})
+        const user = await userDao.createOne({name, lastname, email, password: passwordHashed, role: role || "user"})
 
         done(null, user)
     }catch (error) {
@@ -61,7 +61,7 @@ passport.use("localLogin", new localStrategy(
     async (email, password, done) =>{
         try {
             //Buscamos el usuario en la DB
-            const user = await userManager.readBy({email});
+            const user = await userDao.readBy({email});
             if(!user){
                 return done(null, false,{message: "Incorrect email or password."})
             }
@@ -92,7 +92,7 @@ passport.use("admin", new JwtStrategy(opts, async (jwt_payload, done) =>{
     try {
         const {email} = jwt_payload;
 
-        const user = await userManager.readBy({email});
+        const user = await userDao.readBy({email});
         if(!user){
             return done(null, false,{message: "The user is not registered"})
         }
@@ -112,7 +112,7 @@ passport.use("user", new JwtStrategy(opts, async (jwt_payload, done) =>{
     try {
         const {email} = jwt_payload;
 
-        const user = await userManager.readBy({email});
+        const user = await userDao.readBy({email});
         if(!user){
             return done(null, false, {message: "The user is not registered"})
         }

@@ -1,11 +1,11 @@
 const authByRole = require("../../../middleware/authByRole");
 
-//Manager
-const {userManager} = require ("../../../manager/manager");
+//DAO
+const {userDao} = require ("../../../factory/factory")
 
 //Controlador generico
 const genericController = require ("../../../controllers/genericController");
-const userControllerGeneric = new genericController(userManager);
+const userControllerGeneric = new genericController(userDao);
 
 //Generador de rutas generico
 const generateGenericRouter = require ("../../generateGenericRouter");

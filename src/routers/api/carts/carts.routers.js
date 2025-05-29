@@ -1,10 +1,10 @@
 //Middleware de autorizacion
 const authByRole = require("../../../middleware/authByRole")
-//manager 
-const {cartManager} = require("../../../manager/manager")
+//DAO 
+const {cartDao} = require ("../../../factory/factory")
 //Controlador generico
 const GenericController =  require("../../../controllers/genericController");
-const cartControllerGeneric = new GenericController(cartManager);
+const cartControllerGeneric = new GenericController(cartDao);
 //Generador de rutas generico
 const generateGenericRouter = require ("../../generateGenericRouter");
 
