@@ -53,11 +53,7 @@ PERSISTENCE=
 npm run dev
 O en modo producción:
 npm start
-
-5. La API estará corriendo en:
-http://localhost:PORT
-
----
+```
 
 ### Uso básico y verificación
 Para facilitar las pruebas de la API, se incluyen colecciones de Postman listas para importar.
@@ -88,6 +84,8 @@ graph TD
 - Controladores: Adaptan servicios para responder a peticiones HTTP.
 - Rutas: Definen los endpoints y conectan con controladores.
 - Autenticación: Passport.js con JWT y cookies seguras.
+
+- En la carpeta assets pueden encontrar un archivo .drawio que se puede abrir en https://app.diagrams.net/ para visualziar de manera menos abstracta la arquitectura del proyecto
 
 🔜 Roadmap / Próximas funcionalidades
 Controlador y repositorio para autenticación

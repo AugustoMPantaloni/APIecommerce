@@ -1,0 +1,86 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36" version="27.1.1">
+  <diagram name="Página-1" id="IsTy2mtmmzYcYmSrEPsN">
+    <mxGraphModel dx="2253" dy="789" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="3CPVBRZ3VAKIw4D4JIN6-1" value="Persistencia&amp;nbsp;&lt;div&gt;de datos&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=light-dark(#1BA1E2,#8D6E63);fontColor=#ffffff;strokeColor=#006EAF;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="330" y="100" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3CPVBRZ3VAKIw4D4JIN6-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeWidth=2;" edge="1" parent="1" source="3CPVBRZ3VAKIw4D4JIN6-4" target="3CPVBRZ3VAKIw4D4JIN6-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3CPVBRZ3VAKIw4D4JIN6-4" value="DAO" style="rounded=0;whiteSpace=wrap;html=1;fillColor=light-dark(#1BA1E2,#E53935);fontColor=#ffffff;strokeColor=#006EAF;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="330" y="220" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3CPVBRZ3VAKIw4D4JIN6-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;strokeWidth=2;" edge="1" parent="1" source="3CPVBRZ3VAKIw4D4JIN6-5">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="390" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3CPVBRZ3VAKIw4D4JIN6-5" value="FACTORY" style="rounded=0;whiteSpace=wrap;html=1;fillColor=light-dark(#FFFFFF,#B0BEC5);fontColor=light-dark(#000000,#000000);fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="160" y="290" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3CPVBRZ3VAKIw4D4JIN6-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeWidth=2;" edge="1" parent="1" source="3CPVBRZ3VAKIw4D4JIN6-6" target="3CPVBRZ3VAKIw4D4JIN6-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3CPVBRZ3VAKIw4D4JIN6-6" value="&lt;div&gt;ROUTER&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=light-dark(#FFFFFF,#4FC3F7);fontStyle=1;fontSize=14;fontColor=light-dark(#000000,#000000);" vertex="1" parent="1">
+          <mxGeometry x="330" y="600" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3CPVBRZ3VAKIw4D4JIN6-7" value="CONTROLLERS" style="rounded=0;whiteSpace=wrap;html=1;fillColor=light-dark(#FFFFFF,#1976D2);fontStyle=1;fontSize=14;fontColor=light-dark(#000000,#000000);" vertex="1" parent="1">
+          <mxGeometry x="330" y="490" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3CPVBRZ3VAKIw4D4JIN6-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="3CPVBRZ3VAKIw4D4JIN6-8" target="3CPVBRZ3VAKIw4D4JIN6-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3CPVBRZ3VAKIw4D4JIN6-8" value="SERVICES" style="rounded=0;whiteSpace=wrap;html=1;fillColor=light-dark(#FFFFFF,#43A047);fontStyle=1;fontSize=14;fontColor=light-dark(#000000,#000000);" vertex="1" parent="1">
+          <mxGeometry x="240" y="380" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3CPVBRZ3VAKIw4D4JIN6-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeWidth=2;" edge="1" parent="1" source="3CPVBRZ3VAKIw4D4JIN6-9" target="3CPVBRZ3VAKIw4D4JIN6-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3CPVBRZ3VAKIw4D4JIN6-9" value="REPOSITORY" style="rounded=0;whiteSpace=wrap;html=1;fillColor=light-dark(#FFFFFF,#FB8C00);fontStyle=1;fontSize=14;fontColor=light-dark(#000000,#000000);" vertex="1" parent="1">
+          <mxGeometry x="420" y="380" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3CPVBRZ3VAKIw4D4JIN6-25" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;curved=0;strokeWidth=2;" edge="1" parent="1" source="3CPVBRZ3VAKIw4D4JIN6-11" target="3CPVBRZ3VAKIw4D4JIN6-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3CPVBRZ3VAKIw4D4JIN6-11" value="PETICION" style="rounded=0;whiteSpace=wrap;html=1;fillColor=light-dark(#FFFFFF,#67AB9F);strokeColor=default;fontStyle=1;fontSize=14;fontColor=light-dark(#000000,#000000);" vertex="1" parent="1">
+          <mxGeometry x="330" y="710" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3CPVBRZ3VAKIw4D4JIN6-13" value="Recibe la petición HTTP (GET, POST, etc.) y llama al &lt;strong data-start=&quot;459&quot; data-end=&quot;473&quot;&gt;Controller&lt;/strong&gt; correspondiente." style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=default;gradientColor=none;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="460" y="617" width="460" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="3CPVBRZ3VAKIw4D4JIN6-16" value="&lt;b&gt;Recibe la petición ya procesada, extrae datos (params, body, etc.)&lt;/b&gt;&lt;div&gt;&lt;b&gt;&amp;nbsp;y llama al &lt;span data-end=&quot;604&quot; data-start=&quot;593&quot;&gt;Service&lt;/span&gt; para ejecutar la lógica de negocio.&lt;/b&gt;&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;align=left;fillColor=default;" vertex="1" parent="1">
+          <mxGeometry x="-63" y="499" width="380" height="41" as="geometry" />
+        </mxCell>
+        <mxCell id="3CPVBRZ3VAKIw4D4JIN6-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.558;entryY=1.05;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=2;" edge="1" parent="1" source="3CPVBRZ3VAKIw4D4JIN6-7" target="3CPVBRZ3VAKIw4D4JIN6-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3CPVBRZ3VAKIw4D4JIN6-19" value="Se encarga de la lógica de negocio (validaciones, reglas, procesos).&amp;nbsp;&lt;div&gt;No se preocupa por la fuente de datos. Llama al &lt;strong data-start=&quot;787&quot; data-end=&quot;801&quot;&gt;Repository &lt;/strong&gt;&lt;span style=&quot;font-weight: normal;&quot; data-start=&quot;787&quot; data-end=&quot;801&quot;&gt;para&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;obtener los datos.&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=default;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="-158" y="381" width="390" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3CPVBRZ3VAKIw4D4JIN6-27" value="Es el que se encarga de &lt;strong data-start=&quot;851&quot; data-end=&quot;879&quot;&gt;interactuar con los DAOs&lt;/strong&gt;,&lt;div&gt;y pedir los datos sin importar si es Mongo, FS o memoria.&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=default;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="550" y="391" width="330" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="3CPVBRZ3VAKIw4D4JIN6-28" value="El &lt;strong data-end=&quot;954&quot; data-start=&quot;926&quot;&gt;factory ya eligió el DAO&lt;/strong&gt; correcto, y el Repository solo lo usa." style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=default;" vertex="1" parent="1">
+          <mxGeometry x="-220" y="305" width="370" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="3CPVBRZ3VAKIw4D4JIN6-32" value="El DAO es el que &lt;strong data-end=&quot;1244&quot; data-start=&quot;1201&quot;&gt;habla directamente con la base de datos&lt;/strong&gt;, archivo, memoria, etc." style="text;whiteSpace=wrap;html=1;fillColor=default;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="459" y="232" width="480" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="3CPVBRZ3VAKIw4D4JIN6-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;" edge="1" parent="1" source="3CPVBRZ3VAKIw4D4JIN6-34">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="390" y="687" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3CPVBRZ3VAKIw4D4JIN6-34" value="&lt;div&gt;MIDDLEWARE&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=light-dark(#FFFFFF,#4B4B4B);fontStyle=1;fontSize=14;fontColor=light-dark(#000000,#000000);" vertex="1" parent="1">
+          <mxGeometry x="143" y="657" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3CPVBRZ3VAKIw4D4JIN6-36" value="Intercepta la petición antes de llegar al router. Puede autenticar,&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;validar, limitar, loguear o transformar la request.&quot;&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;fillColor=default;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="-186" y="663" width="320" height="50" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
