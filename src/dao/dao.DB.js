@@ -1,4 +1,4 @@
-/* Documentacion *
+/** 
 *  Generic daoDb Class
 *
 * Este daoDb genérico permite realizar operaciones CRUD en la DB sobre cualquier modelo de Mongoose,
@@ -16,10 +16,6 @@
 * - Código DRY (Don't Repeat Yourself)
 * - Alta reutilización: sirve para cualquier modelo (productos, carritos, usuarios, etc.)
 * - Fácil de extender (paginación, población, validaciones, etc.)
-*
-* Ejemplo de uso:
-* const productDaoDb = new daoDb(ProductModel);
-* const cartDaoDb = new daoDb(CartModel);
 */
 
 const ProductModel = require ("../models/productsModel");

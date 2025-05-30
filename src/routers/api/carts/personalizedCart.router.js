@@ -1,14 +1,25 @@
-//DAO
-const {cartDao, productDao} = require ("../../../factory/factory")
 //Helper para respuestas estandar
 const sendSuccess = require("../../../helpers/responseHelper")
 //Middleware para validar token (para personalizar errores)
 const checkTokenExists = require ("../../../middleware/checkTokenExist");
 //Middleware de autorizacion
 const authByRole = require("../../../middleware/authByRole")
-//Servicios de cart
+
+//Dao
+const {cartDao, productDao} = require ("../../../factory/factory")
+
+//Repository
+const CartRepository = require ("../../../repository/carts.repository")
+const cartRepository = new CartRepository (cartDao)
+
+const ProductRepository = require ("../../../repository/products.repository")
+const productRepository = new ProductRepository (productDao)
+
+//Services
 const CartService = require ("../../../services/cart.service")
-const cartService = new CartService(cartDao, productDao)
+const cartService = new CartService(cartRepository, productRepository)
+
+//No se usa un controlador porque no aporta mucho en este caso, si la logica crece se implementa.
 
 //Rutas
 const {Router} = require ("express");

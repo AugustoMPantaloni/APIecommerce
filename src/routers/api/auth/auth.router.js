@@ -1,18 +1,23 @@
-const {Router} = require ("express")
-const authRouter = Router();
-
-//Dao
-const {cartDao, userDao} = require ("../../../factory/factory")
 //Helper para respuestas estandar
 const sendSuccess = require ("../../../helpers/responseHelper");
 //Helper para crear y validar tokens
 const {createToken, validateToken} = require ("../../../helpers/jwt.helper")
 //Middleware Passport para la creacion y login de usuarios
 const passport = require("passport");
-//Servicios de auth
+
+//Dao
+const {cartDao, userDao} = require ("../../../factory/factory")
+
+//Repository
+
+
+//Services
 const AuthService = require ("../../../services/auth.service")
 const authService  = new AuthService (cartDao, userDao)
 
+//Rutas
+const {Router} = require ("express")
+const authRouter = Router();
 
 //Registrar usuario
 authRouter.post(

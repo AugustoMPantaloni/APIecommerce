@@ -1,28 +1,38 @@
-/* Documentacion *
+/**
 * GenericController
-* 
-* Este controlador genérico implementa operaciones CRUD estándar para manejar las peticiones HTTP
-* utilizando un `dao` inyectado (una instancia de la clase dao).
-* 
-* Métodos implementados:
-* - createOne(req, res, next): Crea un nuevo documento con los datos del body.
-* - readAll(req, res, next): Lee todos los documentos que coincidan con los filtros del query.
-* - readBy(req, res, next): Lee el primer documento que coincida con los filtros del query.
-* - readById(req, res, next): Busca un documento por su ID.
-* - updateById(req, res, next): Actualiza un documento por ID con los datos del body.
-* - deleteById(req, res, next): Elimina un documento por su ID.
-* 
-* Cada método maneja errores con un try/catch y delega al middleware de errores con `next(error)`.
-* Las respuestas exitosas se envían con el helper `sendSuccess(res, result, statusCode)`.
-* 
-* Ideal para usar con cualquier recurso que requiera CRUD.
+
+* Controlador genérico para manejar operaciones CRUD estándar sobre cualquier recurso,
+* delegando la lógica al `service` inyectado (una instancia de GenericService).
+*
+* Métodos disponibles:
+* - createOne(req, res, next)    → Crea un nuevo documento usando los datos del body.
+* - readAll(req, res, next)      → Obtiene todos los documentos que coincidan con los filtros del query.
+* - readBy(req, res, next)       → Obtiene un único documento según los filtros del query.
+* - readById(req, res, next)     → Obtiene un documento por su ID.
+* - updateById(req, res, next)   → Actualiza un documento por ID con los datos del body.
+* - deleteById(req, res, next)   → Elimina un documento por su ID.
+*
+* Manejo de errores:
+* - Cada método está envuelto en un bloque try/catch.
+* - En caso de error, se delega al middleware de errores mediante `next(error)`.
+*
+* Respuestas:
+* - En caso de éxito, se usa el helper `sendSuccess(res, result, statusCode)` para enviar la respuesta.
+*
+* Ventajas:
+* - Alta reutilización para cualquier entidad (productos, usuarios, carritos, etc.).
+* - Facilita la escritura de nuevos controladores sin repetir lógica.
+* - Se integra naturalmente con un `GenericService` y un `DaoDb`.
+*
+* Ideal para arquitecturas desacopladas y mantenibles.
 */
+
 
 const sendSuccess = require("../helpers/responseHelper")
 
 class GenericController {
-    constructor (dao){
-        this.dao = dao
+    constructor (service){
+        this.service = service
 
         this.createOne = this.createOne.bind(this);
         this.readAll = this.readAll.bind(this)
@@ -35,7 +45,7 @@ class GenericController {
     async createOne (req, res, next) {
         try {
             const data = req.body;
-            const result = await this.dao.createOne(data)
+            const result = await this.service.createOne(data)
             sendSuccess(res, result, 201)
         } catch (error){
             next(error)
@@ -44,7 +54,7 @@ class GenericController {
     async readAll (req, res, next){
         try {
             const filter = req.query
-            const result = await this.dao.readAll(filter)
+            const result = await this.service.readAll(filter)
             sendSuccess(res, result, 200)
         } catch (error) {
             next(error)
@@ -53,7 +63,7 @@ class GenericController {
     async readBy(req, res, next) {
         try {
             const filter = req.query
-            const result = await this.dao.readBy(filter)
+            const result = await this.service.readBy(filter)
             sendSuccess(res, result, 200)
         } catch (error) {
             next(error)
@@ -62,7 +72,7 @@ class GenericController {
     async readById(req, res, next) {
         try {
             const {id} = req.params 
-            const result = await this.dao.readById(id)
+            const result = await this.service.readById(id)
             sendSuccess(res, result, 200)
         } catch (error) {
             next(error)
@@ -72,7 +82,7 @@ class GenericController {
         try {
             const {id} = req.params 
             const data = req.body
-            const result = await this.dao.updateById(id, data)
+            const result = await this.service.updateById(id, data)
             sendSuccess(res, result, 200)
         } catch (error) {
             next(error)
@@ -81,7 +91,7 @@ class GenericController {
     async deleteById(req, res ,next){
         try {
             const {id} = req.params
-            const result = await this.dao.deleteById(id)
+            const result = await this.service.deleteById(id)
             sendSuccess(res, result, 200)
         } catch (error) {
             next(error)

@@ -1,126 +1,122 @@
-!Diagrama de código
-https://gitdiagram.com/augustompantaloni/newapi
-Este diagrama muestra cómo están organizados los archivos y cómo se conectan entre sí.
+# API E-commerce - Node.js + MongoDB
 
-🚀 E-commerce API (Node.js + MongoDB)
-Arquitectura limpia, escalable y con autenticación JWT
+Backend robusto con arquitectura limpia y JWT para autenticación.  
+CRUD completo para productos, usuarios y carritos, con rutas genéricas para acelerar el desarrollo y evitar código repetitivo.
 
-📌 Características
+---
 
-✅ Funcionalidades implementadas:
+## 🚀 Estado del proyecto
 
-- CRUD completo de productos, usuarios y carritos.
-- Autenticación JWT con cookies seguras (httpOnly, signed).
-- Generador de rutas genéricas para evitar código repetitivo en operaciones básicas.
-- Carrito automático al registrar usuario.
+- **En desarrollo**.
+- Arquitectura por capas (Modelos, DAO, Servicios, Controladores, Rutas).
+- Autenticación segura con Passport.js y JWT usando cookies firmadas (httpOnly).
+- Base preparada para crecer y escalar fácilmente.
 
-🔜 Futuras implementaciones:
+---
 
-- Eliminar producto específico del carrito.
+## 🛠 Tecnologías
 
-🏗 Arquitectura
-![Diagrama del proyecto](./assets/Arquitectura%20por%20capas.drawio)
-```mermaid
-flowchart TD
-  A[Modelos] --> B[DAO]
-  B --> C[Controladores]
-  C --> D[Router]
-  C --> E[Passport/JWT]
-  D --> F[Rutas HTTP]
-  E --> F
-```
+- **Backend:** Node.js, Express.js, Mongoose  
+- **Base de datos:** MongoDB   
+- **Autenticación:** Passport.js, JWT, cookies firmadas  
+- **Patrones:** Arquitectura limpia, DRY (Don't Repeat Yourself)  
+- **Herramientas:** nodemon para desarrollo, Postman para pruebas  
 
-- Models (Product, User, Cart):
-Definiciones de esquemas en Mongoose.
+---
 
-- DAO:
-Operaciones CRUD sobre la persistencia de los datos (en este caso DB).
+## 📦 Instalación y configuración
 
-- Controllers:
-Adaptan DAO a respuestas HTTP.
+### Requisitos previos
 
-- Services
-Logica de negocios
+- Node.js v18 o superior  
+- MongoDB (local o Atlas)  
+- Git (opcional)
 
-- GenericRouter:
-Genera rutas CRUD automáticas para modelos simples.
+### Pasos
 
-- Personalized rutes
-Rutas personalizadas que requieren a los servicios.
+1. Clonar repositorio:  
+```bash
+git clone https://github.com/AugustoMPantaloni/APIecommerce.git
+cd APIecommerce
 
-- Auth:
-Passport.js + JWT para autenticación
+2. Instalar dependencias:
+npm install
 
-🛠 Tecnologías
-- Backend: Node.js, Express, Mongoose.
-- Autenticación: Passport.js, JWT, cookies firmadas.
-- DB: MongoDB.
-- Patrones: Arquitectura por capas, DRY (Don't Repeat Yourself).
+3. Crear archivo .env y configurar variables:
+URL_MONGOOSE=
+PASSWORD_JWT=
+PASSWORD_COOKIE=
+PORT=
+PERSISTENCE=
 
-🛠 Instalación
-📋 Requisitos Previos
-- Node.js (v18 o superior) → Descargar
-- MongoDB (local o Atlas) → Guía de instalación
-- Git (opcional, pero recomendado)
+4. Ejecutar servidor en modo desarrollo:
+npm run dev
+O en modo producción:
+npm start
 
-🔧 Pasos para Configurar el Proyecto
-- Clonar el repositorio :
-    git clone https://github.com/AugustoMPantaloni/APIecommerce
-    cd nombreDeTuCarpeta
+5. La API estará corriendo en:
+http://localhost:PORT
 
-- Instalar dependencias:
-        npm install
+---
 
-- Configurar variables de entorno:
-Crea un archivo .env en la raíz del proyecto basado en el ejemplo (.env.example):
-    cp .env.example .env
-
-- Edita .env con tus credenciales:
-# MongoDB (local o Atlas)
-    MONGO_URI=mongodb://localhost:27017/nombre_db
-# Autenticación JWT
-    JWT_SECRET=tu_clave_secreta_jwt
-    COOKIE_SECRET=clave_secreta_cookies
-# Opcional: Configuración de puerto
-    PORT=8080
-
-- Iniciar el servidor:
-    npm run dev  # Modo desarrollo (con nodemon)
-# o
-    npm start    # Modo producción
-
-- ¡Listo! La API estará corriendo en:
-    http://localhost:8080  # (o el puerto que hayas configurado)
-
-🔍 Verificación
-- Prueba los endpoints básicos:
-    curl http://localhost:8080/api/products  # Debería devolver un listado de productos (o un array vacío si no hay datos).
-
-⚠️ **Atención**  
-Antes de ejecutar el proyecto, asegúrate de:  
-- Tener un archivo `.env` válido en la raíz.  
-- Haber reemplazado TODOS los valores de ejemplo (ej: `your_password`) por tus credenciales reales.  
-
-📜 Scripts Disponibles
-Estos son los comandos definidos en package.json para gestionar la API:
-
-    Comando	     Descripción	                                                                 Ejecución
-
-    npm start	 Inicia el servidor en modo producción (usando Node.js).	                     node src/server.js
-    npm run dev	 Inicia el servidor en modo desarrollo (con nodemon para reinicio automático).	 nodemon src/server.js
-    npm test	 ⚠️ Pendiente: Ejecuta tests (aún no implementados).	                        (Proximamente)
-
-## Colecciones de Postman
-
+### Uso básico y verificación
 Para facilitar las pruebas de la API, se incluyen colecciones de Postman listas para importar.
 
-### Cómo importar la colección
+## Cómo importar la colección
 
 1. Descargar la colección desde la carpeta `postman` en este repositorio.
 2. Abrir Postman.
 3. Hacer clic en el botón **Import** en la parte superior izquierda.
 4. Seleccionar el archivo `.json` de la colección descargada.
-5. ¡Listo! Podrás probar todas las rutas con su configuración ya lista.
+5. ¡Listo! Podrás probar todas las rutas con su configuración ya lista. 
 
----
+🗂 Arquitectura y estructura del proyecto
 
+graph TD
+    A[Modelos] --> B[DAO]
+    B --> C[Repository]
+    C --> D[Servicios]
+    D --> E[Controladores]
+    E --> F[Rutas]
+    C --> G[Passport/JWT]
+    F --> H[Endpoints]
+
+- Modelos: Esquemas Mongoose para productos, usuarios y carritos.
+- DAO: Operaciones CRUD desacopladas de la lógica.
+- Repository: Puente entre logica de negocios y DAO
+- Servicios: Lógica de negocio, validaciones, reglas.
+- Controladores: Adaptan servicios para responder a peticiones HTTP.
+- Rutas: Definen los endpoints y conectan con controladores.
+- Autenticación: Passport.js con JWT y cookies seguras.
+
+🔜 Roadmap / Próximas funcionalidades
+Controlador y repositorio para autenticación
+Funcionalidades avanzadas de carrito
+Suite de tests unitarios e integración
+Documentación Swagger/OpenAPI
+Mejoras en manejo de errores
+Paginación y filtros avanzados
+
+📋 Contribuir
+Haz un fork del repositorio.
+Crea una rama para tu feature o fix: git checkout -b feature/nombre.
+Realiza commits claros y concisos.
+Abre un Pull Request detallando los cambios.
+Por favor, sigue las buenas prácticas de código y escribe tests si es posible.
+
+⚠️ Troubleshooting común
+MongoDB no conecta: Verifica que MONGO_URI en .env esté bien configurada y que MongoDB esté corriendo.
+
+Errores de autenticación: Revisa que JWT_SECRET y COOKIE_SECRET sean correctos y consistentes.
+
+Puerto ocupado: Cambia el valor de PORT en .env o detén procesos que usen el puerto.
+
+🛠 Scripts disponibles
+| Comando       | Descripción                                  | Ejecución               |
+| ------------- | -------------------------------------------- | ----------------------- |
+| `npm start`   | Inicia servidor en modo producción           | `node src/server.js`    |
+| `npm run dev` | Inicia servidor en modo desarrollo (nodemon) | `nodemon src/server.js` |
+| `npm test`    | Ejecuta tests (próximamente)                 |                         |
+
+Licencia
+MIT License © Augusto M. Pantaloni

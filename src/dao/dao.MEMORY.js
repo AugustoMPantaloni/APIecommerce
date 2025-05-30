@@ -1,3 +1,4 @@
+//Dao sin uso actualmente
 class daoDbMemory {
     constructor(){
     }
