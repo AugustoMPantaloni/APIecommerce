@@ -85,11 +85,9 @@ En la carpeta assets pueden encontrar un archivo .drawio que se puede abrir en h
 ---
 
 ## 🔜 Roadmap / Próximas funcionalidades
-- Controlador y repositorio para autenticación
-- Funcionalidades avanzadas de carrito
+- Funcionalidades de cantidad de producto en el carrito
 - Suite de tests unitarios e integración
 - Documentación Swagger/OpenAPI
-- Mejoras en manejo de errores
 - Paginación y filtros avanzados
 
 ---

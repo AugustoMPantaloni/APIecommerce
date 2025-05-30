@@ -12,7 +12,7 @@ const GenericService = require ("../../../services/generice.service")
 const userService = new GenericService(userRepository)
 
 //Controlador generico
-const GenericController =  require("../../../controllers/genericController");
+const GenericController =  require("../../../controllers/generic.controller");
 const userController = new GenericController(userService);
 //Generador de rutas generico
 const generateGenericRouter = require ("../../generateGenericRouter");
