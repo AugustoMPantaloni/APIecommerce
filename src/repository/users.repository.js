@@ -9,19 +9,16 @@ class userRepository {
 
     readBy = async (filter) => {
         const user = await this.userDao.readBy(filter);
-        if(!user) throw new Error("user not found.");
         return user;
     }
 
     readById = async (id) => {
         const user = await this.userDao.readById(id);
-        if(!user) throw new Error("user not found.");
         return user;
     }
 
     readByIdPopulate = async (id, populateOptions) => {
         const user = await this.userDao.readByIdPopulate(id, populateOptions);
-        if(!user) throw new Error("user not found.");
         return user;
     }
 

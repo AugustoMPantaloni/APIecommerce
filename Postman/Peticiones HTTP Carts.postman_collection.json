@@ -94,7 +94,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/carts/actions/quantity/\"\"\":pId\"\"\"",
+					"raw": "http://localhost:8080/api/carts/actions/increaseQuantity/\"\"\":pId\"\"\"",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -104,7 +104,7 @@
 						"api",
 						"carts",
 						"actions",
-						"quantity",
+						"increaseQuantity",
 						"\"\"\":pId\"\"\""
 					]
 				}

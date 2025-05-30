@@ -9,19 +9,16 @@ class cartRepository {
 
     readBy = async (filter) => {
         const cart = await this.cartDao.readBy(filter);
-        if(!cart) throw new Error("Cart not found.");
         return cart;
     }
 
     readById = async (id) => {
         const cart = await this.cartDao.readById(id);
-        if(!cart) throw new Error("Cart not found.");
         return cart;
     }
 
     readByIdPopulate = async (id, populateOptions) => {
         const cart = await this.cartDao.readByIdPopulate(id, populateOptions);
-        if(!cart) throw new Error("Cart not found.");
         return cart;
     }
 

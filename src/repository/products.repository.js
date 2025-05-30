@@ -13,19 +13,16 @@ class ProductRepository {
 
     readBy = async (filter) => {
     const product = await this.productDao.readBy(filter);
-    if(!product) throw new Error("Product not found.");
     return product;
     }
 
     async readById(id) {
         const product = await this.productDao.readById(id);
-        if (!product) throw new Error("Product not found.");
         return product;
     }
 
     async readByIdPopulate(id, populateOptions) {
         const product =  await this.productDao.readByIdPopulate(id, populateOptions);
-        if(!product) throw new Error("Product not found.");
         return product;
     }
 
