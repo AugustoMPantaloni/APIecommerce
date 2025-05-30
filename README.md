@@ -68,7 +68,9 @@ Para facilitar las pruebas de la API, se incluyen colecciones de Postman listas 
 4. Seleccionar el archivo `.json` de la colección descargada.
 5. ¡Listo! Podrás probar todas las rutas con su configuración ya lista. 
 
-🗂 Arquitectura y estructura del proyecto
+---
+
+## 🗂 Arquitectura y estructura del proyecto
 
 - Modelos: Esquemas Mongoose para productos, usuarios y carritos.
 - DAO: Operaciones CRUD desacopladas de la lógica.
@@ -80,7 +82,9 @@ Para facilitar las pruebas de la API, se incluyen colecciones de Postman listas 
 
 En la carpeta assets pueden encontrar un archivo .drawio que se puede abrir en https://app.diagrams.net/ para visualziar de manera menos abstracta la arquitectura del proyecto
 
-🔜 Roadmap / Próximas funcionalidades
+---
+
+## 🔜 Roadmap / Próximas funcionalidades
 - Controlador y repositorio para autenticación
 - Funcionalidades avanzadas de carrito
 - Suite de tests unitarios e integración
@@ -88,17 +92,23 @@ En la carpeta assets pueden encontrar un archivo .drawio que se puede abrir en h
 - Mejoras en manejo de errores
 - Paginación y filtros avanzados
 
-📋 Contribuir
+---
+
+## 📋 Contribuir
 - Haz un fork del repositorio.
 - Crea una rama para tu feature o fix: git checkout -b feature/nombre.
 - Realiza commits claros y concisos.
 - Abre un Pull Request detallando los cambios.
 - Por favor, sigue las buenas prácticas de código y escribe tests si es posible.
 
-⚠️ Troubleshooting común
+---
+
+## ⚠️ Troubleshooting común
 - MongoDB no conecta: Verifica que MONGO_URI en .env esté bien configurada y que MongoDB esté corriendo.
 - Errores de autenticación: Revisa que JWT_SECRET y COOKIE_SECRET sean correctos y consistentes.
 - Puerto ocupado: Cambia el valor de PORT en .env o detén procesos que usen el puerto.
+
+---
 
 🛠 Scripts disponibles
 | Comando       | Descripción                                  | Ejecución               |
@@ -107,5 +117,7 @@ En la carpeta assets pueden encontrar un archivo .drawio que se puede abrir en h
 | `npm run dev` | Inicia servidor en modo desarrollo (nodemon) | `nodemon src/server.js` |
 | `npm test`    | Ejecuta tests (próximamente)                 |                         |
 
-Licencia
+---
+
+## Licencia
 MIT License © Augusto M. Pantaloni
