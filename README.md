@@ -55,10 +55,12 @@ O en modo producción:
 npm start
 ```
 
-### Uso básico y verificación
+---
+
+## Uso básico y verificación
 Para facilitar las pruebas de la API, se incluyen colecciones de Postman listas para importar.
 
-## Cómo importar la colección
+### Cómo importar la colección
 
 1. Descargar la colección desde la carpeta `postman` en este repositorio.
 2. Abrir Postman.
@@ -79,26 +81,24 @@ Para facilitar las pruebas de la API, se incluyen colecciones de Postman listas 
 En la carpeta assets pueden encontrar un archivo .drawio que se puede abrir en https://app.diagrams.net/ para visualziar de manera menos abstracta la arquitectura del proyecto
 
 🔜 Roadmap / Próximas funcionalidades
-Controlador y repositorio para autenticación
-Funcionalidades avanzadas de carrito
-Suite de tests unitarios e integración
-Documentación Swagger/OpenAPI
-Mejoras en manejo de errores
-Paginación y filtros avanzados
+- Controlador y repositorio para autenticación
+- Funcionalidades avanzadas de carrito
+- Suite de tests unitarios e integración
+- Documentación Swagger/OpenAPI
+- Mejoras en manejo de errores
+- Paginación y filtros avanzados
 
 📋 Contribuir
-Haz un fork del repositorio.
-Crea una rama para tu feature o fix: git checkout -b feature/nombre.
-Realiza commits claros y concisos.
-Abre un Pull Request detallando los cambios.
-Por favor, sigue las buenas prácticas de código y escribe tests si es posible.
+- Haz un fork del repositorio.
+- Crea una rama para tu feature o fix: git checkout -b feature/nombre.
+- Realiza commits claros y concisos.
+- Abre un Pull Request detallando los cambios.
+- Por favor, sigue las buenas prácticas de código y escribe tests si es posible.
 
 ⚠️ Troubleshooting común
-MongoDB no conecta: Verifica que MONGO_URI en .env esté bien configurada y que MongoDB esté corriendo.
-
-Errores de autenticación: Revisa que JWT_SECRET y COOKIE_SECRET sean correctos y consistentes.
-
-Puerto ocupado: Cambia el valor de PORT en .env o detén procesos que usen el puerto.
+- MongoDB no conecta: Verifica que MONGO_URI en .env esté bien configurada y que MongoDB esté corriendo.
+- Errores de autenticación: Revisa que JWT_SECRET y COOKIE_SECRET sean correctos y consistentes.
+- Puerto ocupado: Cambia el valor de PORT en .env o detén procesos que usen el puerto.
 
 🛠 Scripts disponibles
 | Comando       | Descripción                                  | Ejecución               |
