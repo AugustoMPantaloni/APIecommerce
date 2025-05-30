@@ -68,15 +68,6 @@ Para facilitar las pruebas de la API, se incluyen colecciones de Postman listas 
 
 🗂 Arquitectura y estructura del proyecto
 
-graph TD
-    A[Modelos] --> B[DAO]
-    B --> C[Repository]
-    C --> D[Servicios]
-    D --> E[Controladores]
-    E --> F[Rutas]
-    C --> G[Passport/JWT]
-    F --> H[Endpoints]
-
 - Modelos: Esquemas Mongoose para productos, usuarios y carritos.
 - DAO: Operaciones CRUD desacopladas de la lógica.
 - Repository: Puente entre logica de negocios y DAO
@@ -85,7 +76,7 @@ graph TD
 - Rutas: Definen los endpoints y conectan con controladores.
 - Autenticación: Passport.js con JWT y cookies seguras.
 
-- En la carpeta assets pueden encontrar un archivo .drawio que se puede abrir en https://app.diagrams.net/ para visualziar de manera menos abstracta la arquitectura del proyecto
+En la carpeta assets pueden encontrar un archivo .drawio que se puede abrir en https://app.diagrams.net/ para visualziar de manera menos abstracta la arquitectura del proyecto
 
 🔜 Roadmap / Próximas funcionalidades
 Controlador y repositorio para autenticación
