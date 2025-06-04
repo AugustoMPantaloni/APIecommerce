@@ -1,5 +1,0 @@
-class AuthRepository {
-    constructor(userDao){
-        
-    }
-}
