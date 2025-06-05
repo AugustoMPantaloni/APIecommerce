@@ -11,6 +11,8 @@ class AuthController {
         this.registerUser = this.registerUser.bind(this);
         this.loginUser = this.loginUser.bind(this);
         this.currentUser = this.currentUser.bind(this);
+        this.verifyUser = this.verifyUser.bind(this);
+        this.recoverPasswordRequest = this.recoverPasswordRequest.bind(this);
     }
 
     async registerUser (req, res, next)  {
@@ -28,14 +30,7 @@ class AuthController {
                 return next(new Error(info.message))
                 }
 
-                const {newUser, token} = await this.authService.registerUser(user)
-
-                res.cookie("token", token,{
-                maxAge: 7 * 24 * 60 * 60 * 1000,
-                httpOnly: true,
-                signed: true,
-                secure: true 
-                })
+                const {newUser} = await this.authService.registerUser(user)
 
                 sendSuccess(res, {
                 message:"registered user",
@@ -65,6 +60,7 @@ class AuthController {
                 }
 
                 const {validateUser, token} = await this.authService.loginUser(user)
+                
 
                 res.cookie("token", token,
                 {
@@ -121,6 +117,35 @@ class AuthController {
         }
     }
 
+    async verifyUser(req, res, next){
+        try {
+            const {tokenEmail} = req.params
+            await this.authService.verifyUser(tokenEmail)
+
+            sendSuccess(res, {
+                message:"Verified account. You can now log in",
+            }, 200 )
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async recoverPasswordRequest (req, res, next){
+        try {
+            const existingToken = req.signedCookies.token
+            if(existingToken){
+                throw new Error("There is an active session")
+            }
+            
+            const {email} = req.body
+
+            const result = await this.authService.recoverPasswordRequest(email)
+
+            sendSuccess(res, result, 200)
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 

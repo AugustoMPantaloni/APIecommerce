@@ -26,11 +26,19 @@ authRouter.post("/register", authController.registerUser)
 //logear usurio
 authRouter.post("/login", authController.loginUser)
 
-//Verifica usuario activo
+//Verifica sesion activa
 authRouter.get("/current", authController.currentUser)
 
 //deslogear usuario
 authRouter.post("/logout", authController.logoutUser)
+
+//Validar cuenta
+authRouter.get("/verify/:tokenEmail", authController.verifyUser)
+
+//Envio de email para recuperar contraseña 
+authRouter.post("/recoverPassword/Request", authController.recoverPasswordRequest)
+
+//Restear contraseña
 
 
 module.exports= authRouter;

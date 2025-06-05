@@ -2,8 +2,15 @@
 const {createHash, compareHash} = require ("../helpers/hash.helper")
 //Helper para crear y validar tokens
 const {createToken, validateToken} = require ("../helpers/jwt.helper")
+//Crypto para generar el token de verficacion
+const crypto = require ("crypto");
+//Funcion helper para enviar emails
+const verifyEmail = require ("../helpers/verifyEmailHelper")
+const recoverPasswordEmail = require ("../helpers/resetPasswordHelper.js")
+
 
 const validator = require ("validator");
+const { token } = require("morgan");
 
 class AuthService {
     constructor (cartRepository, userRepository){
@@ -37,6 +44,9 @@ class AuthService {
         //Creamos un carrito de compras 
         const newCart = await this.cartRepository.createOne();
 
+        //Creamos el token de verificacion
+        const emailVerificationToken = crypto.randomBytes(32).toString("hex");
+
         //Creamos el usuario
         const newUser = await this.userRepository.createOne({
             name,
@@ -44,18 +54,14 @@ class AuthService {
             email,
             password: passwordHashed,
             role: role || "user",
-            cart: newCart._id //Aca le asignamos el carrito de compras
+            cart: newCart._id, //Asignamos el carrito de compras
+            emailVerificationToken: emailVerificationToken //Asignamos el token de verificacion
         })
 
-        const tokenData = {
-        id: newUser._id,
-        email: newUser.email,
-        role: newUser.role
-        }
+        //Mandamos el email para verificar la cuenta
+        verifyEmail(newUser);
 
-        const token = createToken(tokenData)
-
-        return{newUser: newUser, token: token}
+        return{newUser: newUser}
     }
 
     async loginUser (user){
@@ -69,6 +75,10 @@ class AuthService {
         const match = await compareHash(password, validateUser.password)
         if(!match){
             throw new Error("Incorrect email or password.")
+        }
+
+        if(!validateUser.verifiedEmail){
+            throw new Error("This account is not verified")
         }
 
         const tokenData ={
@@ -95,6 +105,44 @@ class AuthService {
         //Sin logica existente
     }
 
+    async verifyUser(tokenEmail){
+        const user = await this.userRepository.readBy({emailVerificationToken: tokenEmail})
+        if(!user){
+            throw new Error("User not found.")
+        }
+
+        const userVerified = await this.userRepository.updateById(user._id, {
+            verifiedEmail: true,
+            emailVerificationToken: null
+        })
+
+        if(!userVerified){
+            throw new Error("The account could not be verified")
+        }
+
+        return userVerified;
+    }
+
+    async recoverPasswordRequest(email){
+        if(!email){
+            throw new Error("data is missing")
+        }
+
+        const user = await this.userRepository.readBy({email});
+        if(!user){
+            throw new Error("User not found.")
+        }
+
+        const tokenPassword = crypto.randomBytes(32).toString("hex");
+
+        const updateUser = await this.userRepository.updateById(user._id, {tokenPassword: tokenPassword})
+        
+        await recoverPasswordEmail(updateUser)
+
+        return {
+            message: "Password recovery email sent"
+        }
+    }
 }
 
 module.exports = AuthService;

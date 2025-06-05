@@ -8,17 +8,8 @@ const transporter = nodemailer.createTransport({
         user: process.env.MAILER_EMAIL,
         pass: process.env.MAILER_PASS,
     }
+    
 })
-
-
-const sendEmail = async (email) =>{
-    try{
-
-
-    }catch(error){
-
-    }
-}
 
 
 module.exports = transporter

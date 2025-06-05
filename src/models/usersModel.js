@@ -32,6 +32,13 @@ const UsersSchema = new mongoose.Schema(
         cart:{
             type: mongoose.Schema.Types.ObjectId,
             ref:"Carts",
+        },
+        emailVerificationToken:{
+            type: String,
+        },
+        verifiedEmail:{
+            type: Boolean,
+            default: false,
         }
     },
     {
