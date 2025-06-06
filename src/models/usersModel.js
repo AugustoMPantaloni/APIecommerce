@@ -33,13 +33,19 @@ const UsersSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref:"Carts",
         },
-        emailVerificationToken:{
-            type: String,
-        },
         verifiedEmail:{
             type: Boolean,
             default: false,
-        }
+        },
+        tokenEmail:{
+            type: String,
+        },
+        tokenPassword:{
+            type: String
+        },
+        tokenPasswordExpires:{
+            type: Date,
+        },
     },
     {
         timestamps: true

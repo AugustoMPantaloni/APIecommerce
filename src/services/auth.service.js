@@ -2,14 +2,14 @@
 const {createHash, compareHash} = require ("../helpers/hash.helper")
 //Helper para crear y validar tokens
 const {createToken, validateToken} = require ("../helpers/jwt.helper")
-//Crypto para generar el token de verficacion
+//Crypto para generar token
 const crypto = require ("crypto");
 //Funcion helper para enviar emails
 const verifyEmail = require ("../helpers/verifyEmailHelper")
 const recoverPasswordEmail = require ("../helpers/resetPasswordHelper.js")
-
-
+//Libreria para validar datos
 const validator = require ("validator");
+
 const { token } = require("morgan");
 
 class AuthService {
@@ -44,8 +44,10 @@ class AuthService {
         //Creamos un carrito de compras 
         const newCart = await this.cartRepository.createOne();
 
-        //Creamos el token de verificacion
-        const emailVerificationToken = crypto.randomBytes(32).toString("hex");
+        //Creamos el token de email
+        const tokenEmail = crypto.randomBytes(32).toString("hex");
+        //Hasheamos el token con crypto para no exponerlo en la DB
+        const hashedTokenEmail = crypto.createHash("sha256").update(tokenEmail).digest("hex")
 
         //Creamos el usuario
         const newUser = await this.userRepository.createOne({
@@ -55,11 +57,11 @@ class AuthService {
             password: passwordHashed,
             role: role || "user",
             cart: newCart._id, //Asignamos el carrito de compras
-            emailVerificationToken: emailVerificationToken //Asignamos el token de verificacion
+            tokenEmail: hashedTokenEmail, //Asignamos el token de verificacion
         })
 
         //Mandamos el email para verificar la cuenta
-        verifyEmail(newUser);
+        verifyEmail(newUser, tokenEmail);
 
         return{newUser: newUser}
     }
@@ -106,14 +108,17 @@ class AuthService {
     }
 
     async verifyUser(tokenEmail){
-        const user = await this.userRepository.readBy({emailVerificationToken: tokenEmail})
+        //Hasheamos el token para podes buscarlo en la base de datos
+        const hashedToken = crypto.createHash("sha256").update(tokenEmail).digest("hex");
+
+        const user = await this.userRepository.readBy({tokenEmail: hashedToken})
         if(!user){
             throw new Error("User not found.")
         }
 
         const userVerified = await this.userRepository.updateById(user._id, {
             verifiedEmail: true,
-            emailVerificationToken: null
+            tokenEmail: null
         })
 
         if(!userVerified){
@@ -122,7 +127,7 @@ class AuthService {
 
         return userVerified;
     }
-
+    //Servicio que envia email para resetear la constraseña 
     async recoverPasswordRequest(email){
         if(!email){
             throw new Error("data is missing")
@@ -133,14 +138,56 @@ class AuthService {
             throw new Error("User not found.")
         }
 
+        //Creamos el token de contraseña
         const tokenPassword = crypto.randomBytes(32).toString("hex");
+        //Hasheamos el token con crypto para no exponerlo en la DB
+        const hashedTokenPassword = crypto.createHash("sha256").update(tokenPassword).digest("hex")
+        const expires = new Date(Date.now() + 15 * 60 * 1000)
 
-        const updateUser = await this.userRepository.updateById(user._id, {tokenPassword: tokenPassword})
+        const updateUser = await this.userRepository.updateById(
+            user._id,{
+            tokenPassword: hashedTokenPassword,
+            tokenPasswordExpires: expires
+        })
         
-        await recoverPasswordEmail(updateUser)
+        await recoverPasswordEmail(updateUser, tokenPassword)
 
         return {
             message: "Password recovery email sent"
+        }
+    }
+    //Servicio que actualiza la contrasñea gracias al email 
+    async resetPassword(tokenPassword, newPassword){
+        //Hasheamos el token para podes buscarlo en la base de datos
+        const hashedToken = crypto.createHash("sha256").update(tokenPassword).digest("hex");
+
+        const user = await this.userRepository.readBy({tokenPassword: hashedToken,})
+        
+        if(!user){
+            throw new Error("User not found")
+        }
+
+        if(user.tokenPasswordExpires < Date.now()){
+            throw new Error("The link has expired. Please try again to recover your password.")
+        }
+        const isSamePassword = await compareHash(newPassword, user.password);
+        if(isSamePassword){
+            throw new Error("The new password cannot be the same as the previous one.")
+        }
+
+        const passwordHashed = await createHash(newPassword)
+
+        const updateUser = await this.userRepository.updateById(user._id, {
+            password: passwordHashed,
+            tokenPassword: null,
+            tokenPasswordExpires: null
+        });
+        if(!updateUser){
+            throw new Error("The password could not be updated.")
+        }
+
+        return {
+            message: "Password updated"
         }
     }
 }

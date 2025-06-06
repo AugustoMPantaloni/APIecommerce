@@ -1,4 +1,4 @@
-//Funcion para hashear contraseña
+//Funcion para hashear contraseñas SOLO contraseñas
 
 const bcrypt = require ("bcrypt");
 

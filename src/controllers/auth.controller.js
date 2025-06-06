@@ -13,6 +13,7 @@ class AuthController {
         this.currentUser = this.currentUser.bind(this);
         this.verifyUser = this.verifyUser.bind(this);
         this.recoverPasswordRequest = this.recoverPasswordRequest.bind(this);
+        this.resetPassword = this.resetPassword.bind(this)
     }
 
     async registerUser (req, res, next)  {
@@ -33,7 +34,7 @@ class AuthController {
                 const {newUser} = await this.authService.registerUser(user)
 
                 sendSuccess(res, {
-                message:"registered user",
+                message:"registered user. Check your email to verify the account",
                 name: newUser.name,
                 lastname: newUser.lastname,
                 email: newUser.email,
@@ -129,7 +130,7 @@ class AuthController {
             next(error)
         }
     }
-
+    //Controlador que envia email para resetear la constraseña 
     async recoverPasswordRequest (req, res, next){
         try {
             const existingToken = req.signedCookies.token
@@ -142,6 +143,20 @@ class AuthController {
             const result = await this.authService.recoverPasswordRequest(email)
 
             sendSuccess(res, result, 200)
+        } catch (error) {
+            next(error)
+        }
+    }
+    //Controlador que actualiza la contrasñea gracias al email 
+    async resetPassword (req, res, next){
+        try {
+
+            const {tokenPassword} = req.params
+            const {newPassword}  = req.body
+
+            const result = await this.authService.resetPassword(tokenPassword, newPassword)
+
+            sendSuccess(res, result, 200 )
         } catch (error) {
             next(error)
         }

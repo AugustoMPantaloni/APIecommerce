@@ -43,11 +43,14 @@ cd APIecommerce
 npm install
 
 3. Crear archivo .env y configurar variables:
-URL_MONGOOSE=
-PASSWORD_JWT=
-PASSWORD_COOKIE=
 PORT=
-PERSISTENCE=
+URL_MONGOOSE=
+PASSWORD_COOKIE=
+PASSWORD_JWT=
+PERSISTENCE=mongo
+FRONTEND_URL=
+MAILER_EMAIL=
+MAILER_PASS=
 
 4. Ejecutar servidor en modo desarrollo:
 npm run dev
@@ -85,7 +88,7 @@ En la carpeta assets pueden encontrar un archivo .drawio que se puede abrir en h
 ---
 
 ## 🔜 Roadmap / Próximas funcionalidades
-- Funcionalidades de cantidad de producto en el carrito
+- Funcionalidades de reduccion de cantidad de producto en el carrito
 - Suite de tests unitarios e integración
 - Documentación Swagger/OpenAPI
 - Paginación y filtros avanzados

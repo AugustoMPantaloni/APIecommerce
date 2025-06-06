@@ -35,10 +35,11 @@ authRouter.post("/logout", authController.logoutUser)
 //Validar cuenta
 authRouter.get("/verify/:tokenEmail", authController.verifyUser)
 
-//Envio de email para recuperar contraseña 
+//Envio de email para resetar contraseña 
 authRouter.post("/recoverPassword/Request", authController.recoverPasswordRequest)
 
-//Restear contraseña
+//Resetear contraseña via email
+authRouter.patch("/resetPassword/:tokenPassword", authController.resetPassword )
 
 
 module.exports= authRouter;
